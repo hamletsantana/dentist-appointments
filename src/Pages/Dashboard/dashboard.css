@@ -1,0 +1,40 @@
+*{
+    font-family:"Poppins", sans-serif;
+    
+  }
+.Dashboard{
+    background-color: #ebebeb;
+    height: 100vh;
+}
+
+.Nav{
+  margin-left: 91%;
+  padding-top: 20px;
+}
+.optionsButton{
+    background-color: #047D95; /* Green */
+    border: none;
+    color: white;
+    padding: 80px 50px;
+    text-align: center;
+    border-radius: 20px;
+    text-decoration: none;
+    display: inline-block;
+    margin: 1px 100px;
+    cursor: pointer;
+    margin-left: 10px;
+    justify-content: center;
+    margin-top: 150px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.optionsButton:hover {
+    background-color: #124d59; /* Darker red background color on hover */
+  }
+
+.button1 {font-size: 50px;}
+.button2 {font-size: 50px;}
+
+.Options{
+    margin-left:220px;
+}

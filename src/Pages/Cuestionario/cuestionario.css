@@ -1,0 +1,62 @@
+*{
+    font-family:"Poppins", sans-serif;
+}   
+
+h1{
+font-size: 40px;
+text-align: center;
+margin-top: 50px;
+}
+.Cuestionario{
+    background-color: #ebebeb;
+    height: 300vh;
+    
+}
+
+.Formulario{
+    width: 99%;
+    padding-left: 150px;
+    padding-right: 150px;
+}
+
+Form{
+    margin-top: 50px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-radius: 10px;
+    background-color: white;
+}
+.justify-content-md-center{
+    padding-top: 3%;
+}
+.Row{
+    padding-top: 3%;
+    padding-left: 155px;
+}
+
+.justify-content-md-center h2{
+    font-size: 30px;
+    margin-left: 300px;
+    margin-bottom: 30px;
+  }
+
+.LogOut{
+    margin-left: 91%;
+    padding-top: 20px;
+  }
+
+.Checkboxes{
+    display: grid;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-items: center;
+    grid-template-columns: repeat(10,1fr);
+    
+}
+
+p{
+    margin-left: 320px;
+    margin-top: 50px;
+    padding-bottom: 20px;
+    }

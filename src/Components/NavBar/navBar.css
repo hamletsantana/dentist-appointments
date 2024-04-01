@@ -1,0 +1,38 @@
+.navbar{
+    height: 15vh;
+    background-color: #181919;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-items {
+    display: flex;
+    list-style: none;
+    text-align: center;
+    width: 70vw;
+    justify-content: flex-end;
+    margin-right: 1rem;
+    margin-left: 100px;
+}
+
+.nav-item {
+    display: flex;
+    align-items:center;
+    height: 15vh;
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: white;
+    margin-right: 2rem;
+    font-size: 1.1rem;
+    padding: 15px 16px;
+    border-radius: 5px;
+}
+
+.nav-item a:hover {
+
+    background: #047D95;
+}

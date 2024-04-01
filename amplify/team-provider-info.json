@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-dentistappointments-dev-165021-authRole",
+      "UnauthRoleArn": "arn:aws:iam::561603155759:role/amplify-dentistappointments-dev-165021-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::561603155759:role/amplify-dentistappointments-dev-165021-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-dentistappointments-dev-165021-deployment",
+      "UnauthRoleName": "amplify-dentistappointments-dev-165021-unauthRole",
+      "StackName": "amplify-dentistappointments-dev-165021",
+      "StackId": "arn:aws:cloudformation:us-east-1:561603155759:stack/amplify-dentistappointments-dev-165021/9c174e30-c79d-11ee-817e-125241213ff5",
+      "AmplifyAppId": "d2qmf0x4ary2ng"
+    },
+    "categories": {
+      "auth": {
+        "dentistappointments9b763730": {}
+      }
+    }
+  }
+}

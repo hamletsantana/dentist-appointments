@@ -1,38 +1,42 @@
-.App {
-  text-align: center;
+
+
+.Authentication {
+  height: 115vh;
+  width: 100%;
+  background-image: url(/src/Images/bg2.jpg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.row {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+
 }
 
-.App-link {
-  color: #61dafb;
+.auth-intro {
+  margin-top: 130px;
+  width:100%;
+  float: left;
+  padding: 10px;
+  height: 420px; 
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.left {
+  width:60%;
+  background-color: white;
+  opacity: 0.9;
+  margin-left: 60px;
+  margin-top: 140px;
+  height: 410px;
+  border-radius: 0px;
+
+}
+.logo_unibe{
+  width: 100%;
+  margin-top: 10%;
+
+}
+
+.right {
+  width:40%;
 }

@@ -1,0 +1,31 @@
+.endodoncia-submenu{
+    width: 10rem;
+    position: absolute;
+    list-style: none;
+    text-align: start;
+    left:210px;
+    top:104px;
+}
+
+.endodoncia-submenu li{
+    background: #047D95;
+    cursor: pointer;
+}
+
+.endodoncia-submenu li a:hover{
+    background: #124d59;
+}
+
+.endodoncia-submenu.clicked{
+    display: none;
+}
+
+.submenu-item{
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: white;
+    padding: 16px;
+}
+
