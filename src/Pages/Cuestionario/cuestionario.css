@@ -9,7 +9,7 @@ margin-top: 50px;
 }
 .Cuestionario{
     background-color: #ebebeb;
-    height: 300vh;
+    height: 500vh;
     
 }
 
@@ -28,7 +28,13 @@ Form{
 }
 .justify-content-md-center{
     padding-top: 3%;
+    
 }
+.endodoncia{
+    padding-left:55px;
+    padding-right: 55px;
+}
+
 .Row{
     padding-top: 3%;
     padding-left: 155px;
@@ -38,6 +44,7 @@ Form{
     font-size: 30px;
     margin-left: 300px;
     margin-bottom: 30px;
+    color:#047D95;
   }
 
 .LogOut{
@@ -55,8 +62,26 @@ Form{
     
 }
 
-p{
-    margin-left: 320px;
-    margin-top: 50px;
-    padding-bottom: 20px;
-    }
+.justify-content-md-center .endodonciaP{
+    margin-left: 190px;
+
+}
+
+.justify-content-md-center p {
+    margin-left: 300px;
+}
+.ortodonciaP{
+    margin-left: 200px;
+}
+
+.SubmitRow{
+    margin-left: 150px;
+    margin-top: 40px;
+}
+
+.d-grid{
+    padding-left: 150px;
+    padding-right: 150px;
+    margin-top: 40px;
+}
+
