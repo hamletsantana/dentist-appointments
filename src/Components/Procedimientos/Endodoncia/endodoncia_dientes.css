@@ -1,0 +1,11 @@
+.Checkboxes{
+    display: grid;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-items: center;
+    grid-template-columns: repeat(10,1fr);
+    padding-left: 150px;
+    padding-right: 150px;
+    margin-top: 30px;
+}

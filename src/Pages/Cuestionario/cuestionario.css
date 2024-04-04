@@ -9,7 +9,7 @@ margin-top: 50px;
 }
 .Cuestionario{
     background-color: #ebebeb;
-    height: 500vh;
+    height: 530vh;
     
 }
 
@@ -22,7 +22,7 @@ margin-top: 50px;
 Form{
     margin-top: 50px;
     padding-top: 30px;
-    padding-bottom: 30px;
+    padding-bottom: 100px;
     border-radius: 10px;
     background-color: white;
 }
@@ -52,15 +52,7 @@ Form{
     padding-top: 20px;
   }
 
-.Checkboxes{
-    display: grid;
-    justify-content: center;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-items: center;
-    grid-template-columns: repeat(10,1fr);
-    
-}
+
 
 .justify-content-md-center .endodonciaP{
     margin-left: 190px;
@@ -74,14 +66,10 @@ Form{
     margin-left: 200px;
 }
 
-.SubmitRow{
-    margin-left: 150px;
-    margin-top: 40px;
-}
 
 .d-grid{
     padding-left: 150px;
     padding-right: 150px;
-    margin-top: 40px;
+    margin-top: 60px;
 }
 
