@@ -72,20 +72,17 @@ function Cuestionario() {
     console.log("Values:::", JSON.stringify(values));
     if (!Object.keys(errors).length) {
       fetch(
-        "https://3lmv2y6pmb.execute-api.us-east-1.amazonaws.com/development",
+        "https://3lmv2y6pmb.execute-api.us-east-1.amazonaws.com/development/dentist-appointment-post-request",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "http://localhost:3000",
-            // Add any other headers as needed
-          },
+          mode: "cors", // Ensure CORS mode is enabled
+
           body: JSON.stringify(values),
         }
       )
         .then((response) => {
           if (response.ok) {
-            // Request successful, navigate to the dashboard or perform any other actions
+            // Request successful, proceed with your logic
             setShowSuccessMessage(true);
             setTimeout(() => {
               navigate("/dashboard");
@@ -93,6 +90,8 @@ function Cuestionario() {
           } else {
             // Handle error if the request was not successful
             console.error("Failed to submit data:", response.status);
+            // You can optionally display an error message to the user
+            // or perform other error handling logic here
           }
         })
         .catch((error) => {
@@ -218,7 +217,7 @@ function Cuestionario() {
                   {...register("apellidoPaciente", {
                     required: "Apellido es obligatiorio",
                     pattern: {
-                      value: /^[A-Za-z]+$/,
+                      value: /^[A-Za-z\s]+$/,
                       message: "El apellido no puede contener números",
                     },
                     maxLength: {
@@ -300,7 +299,7 @@ function Cuestionario() {
             </Row>
             <Row className="justify-content-md-center">
               <Col lg="9">
-                <Form.Label>Direccion</Form.Label>
+                <Form.Label>Dirección</Form.Label>
                 <Form.Control
                   placeholder="Calle. Sector. Municipio"
                   {...register("direccionPaciente", {
@@ -322,7 +321,7 @@ function Cuestionario() {
               <h2>Cirugía</h2>
               <Col lg="9">
                 <Form.Label>
-                  El paciente presenta dientes con ninguna posibilidad de ser
+                  ¿El paciente presenta dientes con ninguna posibilidad de ser
                   restaurables?
                 </Form.Label>
                 <Form.Select
@@ -503,7 +502,7 @@ function Cuestionario() {
             </Row>
             <Row className="justify-content-md-center">
               <Col lg="9">
-                <Form.Label>El paciente está inflamado??</Form.Label>
+                <Form.Label>¿El paciente está inflamado?</Form.Label>
                 <Form.Select
                   defaultValue=""
                   aria-label="Default select example"
@@ -533,7 +532,7 @@ function Cuestionario() {
               <h2>Periodoncia</h2>
               <Col lg="9">
                 <Form.Label>
-                  El paciente se queja de sangrado de las encías al cepillarse?
+                  ¿El paciente se queja de sangrado de las encías al cepillarse?
                 </Form.Label>
                 <Form.Select
                   defaultValue=""
@@ -568,7 +567,8 @@ function Cuestionario() {
             <Row className="justify-content-md-center">
               <Col lg="9">
                 <Form.Label>
-                  Al examen radiográfico se observa pérdida ósea en los dientes?
+                  ¿En el examen radiográfico se observa pérdida ósea en los
+                  dientes?
                 </Form.Label>
                 <Form.Select
                   defaultValue=""
@@ -602,7 +602,7 @@ function Cuestionario() {
               <h2>Restauradora</h2>
               <Col lg="9">
                 <Form.Label>
-                  Paciente presenta caries en algún órgano dental?
+                  ¿El paciente presenta caries en algún órgano dental?
                 </Form.Label>
                 <Form.Select
                   defaultValue=""
@@ -632,7 +632,7 @@ function Cuestionario() {
             </Row>
             <Row className="justify-content-md-center">
               <Col lg="9">
-                <Form.Label>El paciente necesita una profilaxis?</Form.Label>
+                <Form.Label>¿El paciente necesita una profilaxis?</Form.Label>
                 <Form.Select
                   defaultValue=""
                   aria-label="Default select example"
@@ -663,7 +663,7 @@ function Cuestionario() {
             </Row>
             <Row className="justify-content-md-center">
               <h2>Prótesis</h2>
-              <p>El paciente presenta áreas de pérdida de dientes:</p>
+              <p>¿El paciente presenta áreas de pérdida de dientes?</p>
               <Col lg="4">
                 <Form.Label>Unilateral:</Form.Label>
                 <Form.Select
@@ -727,7 +727,7 @@ function Cuestionario() {
               </Col>
             </Row>
             <Row className="justify-content-md-center">
-              <p>Es necesario realizarse una prótesis:</p>
+              <p>¿Es necesario realizarse una prótesis?</p>
               <Col lg="4">
                 <Form.Label>Fija:</Form.Label>
                 <Form.Select
@@ -781,7 +781,7 @@ function Cuestionario() {
             <Row className="justify-content-md-center">
               <Col lg="9">
                 <Form.Label>
-                  El paciente necesita una prótesis total?
+                  ¿El paciente necesita una prótesis total?
                 </Form.Label>
                 <Form.Select
                   defaultValue=""
@@ -880,7 +880,7 @@ function Cuestionario() {
             <Row className="justify-content-md-center ortodoncia">
               <h2 className="ortodoncia">Ortodoncia</h2>
               <p className="ortodonciaP">
-                ¿Paciente pediátrico, padece de algún hábito?
+                ¿Paciente pediátrico padece de algún hábito?
               </p>
               <Col lg="2">
                 <Form.Label>Succión digital:</Form.Label>
@@ -1015,7 +1015,7 @@ function Cuestionario() {
                 style={{ backgroundColor: "#047D95", borderColor: "#047D95" }}
                 type="submit"
               >
-                Submit
+                Enviar Formulario
               </Button>
             </div>
           </Form>
