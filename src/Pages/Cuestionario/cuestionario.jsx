@@ -66,6 +66,10 @@ function Cuestionario() {
   const [initialValues, setInitialValues] = React.useState(initState);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
+  const handleClickDashboard = () => {
+    navigate("/dashboard");
+  };
+
   const navigate = useNavigate();
   const onSubmit = (values) => {
     console.log("Values:::", values);
@@ -131,6 +135,13 @@ function Cuestionario() {
     <>
       <section className="Cuestionario">
         <div className="LogOut">
+          <button
+            className="buttonDashboardCuestionario"
+            onClick={handleClickDashboard}
+          >
+            {" "}
+            Dashboard
+          </button>
           <Authenticate></Authenticate>
         </div>
         <div className="Formulario">

@@ -13,6 +13,20 @@ margin-top: 50px;
     
 }
 
+.buttonDashboardCuestionario {
+    margin-left: 40px;
+    background-color: #047D95; 
+    margin-right: 20px;
+    color: #ffffff; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 10px; 
+    cursor: pointer; 
+    font-size: 16px; 
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  }
+  
+
 .Formulario{
     width: 99%;
     padding-left: 150px;
@@ -48,8 +62,9 @@ Form{
   }
 
 .LogOut{
-    margin-left: 91%;
+    margin-left: 75%;
     padding-top: 20px;
+    display:flex ;
   }
 
 

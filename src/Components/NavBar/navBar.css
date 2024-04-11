@@ -20,13 +20,14 @@
 .nav-item {
     display: flex;
     align-items:center;
-    height: 15vh;
+    height: 14vh;
+    width:100%;
+    margin-right: 30px;
 }
 
 .nav-item a {
     text-decoration: none;
     color: white;
-    margin-right: 2rem;
     font-size: 1.1rem;
     padding: 15px 16px;
     border-radius: 5px;
@@ -36,3 +37,16 @@
 
     background: #047D95;
 }
+
+.buttonDashboard {
+    margin-left: 40px;
+    background-color: #047D95; 
+    color: #ffffff; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 10px; 
+    cursor: pointer; 
+    font-size: 16px; 
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  }
+  

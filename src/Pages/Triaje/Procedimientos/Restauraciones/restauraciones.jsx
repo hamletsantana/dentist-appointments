@@ -3,7 +3,7 @@ import NavBar from "../../../../Components/NavBar/navBar";
 import "./restauraciones.css"; // Import CSS for CirugiasPage
 
 const Cirugias = () => {
-  const [cirugiasData, setCirugiasData] = useState([]);
+  const [restauracionesData, setrestauracionesData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -12,7 +12,7 @@ const Cirugias = () => {
     )
       .then((response) => response.json())
       .then((data) => {
-        setCirugiasData(data);
+        setrestauracionesData(data);
         setLoading(false);
       })
       .catch((error) => {
@@ -44,7 +44,7 @@ const Cirugias = () => {
             </tr>
           </thead>
           <tbody>
-            {cirugiasData.map((item, index) => (
+            {restauracionesData.map((item, index) => (
               <tr key={index}>
                 <td>{item.cedula.S}</td>
                 <td>{item.nombrePaciente.S}</td>
