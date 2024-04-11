@@ -1,5 +1,5 @@
 import "./cuestionario.css";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Authenticate from "../../Components/Authenticator/authenticator";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -9,6 +9,7 @@ import Button from "react-bootstrap/Button";
 import { useForm } from "react-hook-form";
 import SeleccionDientes from "../../Components/Procedimientos/Endodoncia/endodoncia_dientes";
 import { useNavigate } from "react-router-dom";
+import postApiLinkPost from "../../API/api-post-request";
 
 function Cuestionario() {
   const initState = {
@@ -75,15 +76,12 @@ function Cuestionario() {
     console.log("Values:::", values);
     console.log("Values:::", JSON.stringify(values));
     if (!Object.keys(errors).length) {
-      fetch(
-        "https://3lmv2y6pmb.execute-api.us-east-1.amazonaws.com/development/dentist-appointment-post-request",
-        {
-          method: "POST",
-          mode: "cors", // Ensure CORS mode is enabled
+      fetch(postApiLinkPost, {
+        method: "POST",
+        mode: "cors", // Ensure CORS mode is enabled
 
-          body: JSON.stringify(values),
-        }
-      )
+        body: JSON.stringify(values),
+      })
         .then((response) => {
           if (response.ok) {
             // Request successful, proceed with your logic
@@ -114,7 +112,6 @@ function Cuestionario() {
     handleSubmit,
     control,
     setValue,
-    watch,
     formState: { errors },
   } = useForm({
     mode: "onTouched",

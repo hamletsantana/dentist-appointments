@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "../../../../Components/NavBar/navBar";
-import "./cirugias.css"; // Import CSS for CirugiasPage
+import "./cirugias.css"; // Import CSS for CirugiasPage'
+import postApiLinkGet from "../../../../API/api-get-request";
 
 const Cirugias = () => {
   const [cirugiasData, setCirugiasData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(
-      "https://3lmv2y6pmb.execute-api.us-east-1.amazonaws.com/development/dentist-appointments-get-requests?type=cirugias"
-    )
+    fetch(postApiLinkGet + "?type=cirugias")
       .then((response) => response.json())
       .then((data) => {
         setCirugiasData(data);
@@ -28,8 +27,8 @@ const Cirugias = () => {
   return (
     <>
       <NavBar></NavBar>
-      <div>
-        <h1>Cirugias Page</h1>
+      <div className="PacientesCirugia">
+        <h1>Pacientes en Cirugía</h1>
         <table>
           <thead>
             <tr>
