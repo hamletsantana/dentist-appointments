@@ -8,9 +8,11 @@ const Cirugias = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log("Fetching data...");
     fetch(postApiLinkGet + "?type=cirugias")
       .then((response) => response.json())
       .then((data) => {
+        console.log("Fetched data:", data);
         setCirugiasData(data);
         setLoading(false);
       })
