@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "../../../../Components/NavBar/navBar";
-import "./restauraciones.css"; // Import CSS for CirugiasPage
+import "./restauraciones.css"; // Import CSS for restauracionesPage'
 import postApiLinkGet from "../../../../API/api-get-request";
 
-const Cirugias = () => {
+const Restauraciones = () => {
   const [restauracionesData, setrestauracionesData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log("Fetching data...");
     fetch(postApiLinkGet + "?type=restauraciones")
       .then((response) => response.json())
       .then((data) => {
+        console.log("Fetched data:", data);
         setrestauracionesData(data);
         setLoading(false);
       })
@@ -62,4 +64,4 @@ const Cirugias = () => {
   );
 };
 
-export default Cirugias;
+export default Restauraciones;
