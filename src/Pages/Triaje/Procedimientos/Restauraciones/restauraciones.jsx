@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "../../../../Components/NavBar/navBar";
-import "./restauraciones.css"; // Import CSS for restauracionesPage'
+import "./restauraciones.css"; // Import CSS for RestauracionesPage'
 import postApiLinkGet from "../../../../API/api-get-request";
 
 const Restauraciones = () => {
-  const [restauracionesData, setrestauracionesData] = useState([]);
+  const [RestauracionesData, setRestauracionesData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     console.log("Fetching data...");
-    fetch(postApiLinkGet + "?type=restauraciones")
+    fetch(postApiLinkGet + "?type=restauracion")
       .then((response) => response.json())
       .then((data) => {
         console.log("Fetched data:", data);
-        setrestauracionesData(data);
+        setRestauracionesData(data);
         setLoading(false);
       })
       .catch((error) => {
@@ -30,7 +30,7 @@ const Restauraciones = () => {
     <>
       <NavBar></NavBar>
       <div className="PacientesRestauraciones">
-        <h1>Pacientes en Restauraciones</h1>
+        <h1>Pacientes en Restauración</h1>
         <table>
           <thead>
             <tr>
@@ -45,7 +45,7 @@ const Restauraciones = () => {
             </tr>
           </thead>
           <tbody>
-            {restauracionesData.map((item, index) => (
+            {RestauracionesData.map((item, index) => (
               <tr key={index}>
                 <td>{item.cedula.S}</td>
                 <td>{item.nombrePaciente.S}</td>

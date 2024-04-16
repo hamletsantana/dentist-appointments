@@ -9,7 +9,7 @@ const Cirugias = () => {
 
   useEffect(() => {
     console.log("Fetching data...");
-    fetch(postApiLinkGet + "?type=cirugias")
+    fetch(postApiLinkGet + "?type=cirugia")
       .then((response) => response.json())
       .then((data) => {
         console.log("Fetched data:", data);
