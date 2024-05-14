@@ -13,14 +13,13 @@ import PreMolar from "./Pages/Triaje/Procedimientos/Endodoncias/PreMolar/pre-mol
 
 import OdontopediatriaControl from "./Pages/Triaje/Procedimientos/Odontopediatria/Control/control";
 import OdontopediatriaNoOperativo from "./Pages/Triaje/Procedimientos/Odontopediatria/NoOperativo/no-operativo";
-import OdontopediatriaOperativo from "./Pages/Triaje/Procedimientos/Odontopediatria/Operativo/operativo";
+import Operativo from "./Pages/Triaje/Procedimientos/Odontopediatria/Operativo/operativo";
 
 import OrtodonciaAparato from "./Pages/Triaje/Procedimientos/Ortodoncia/Aparato/aparato";
 import OrtodonciaControl from "./Pages/Triaje/Procedimientos/Ortodoncia/Control/ortodoncia-control";
 
 import PeriodonciaFaseMantenimiento from "./Pages/Triaje/Procedimientos/Periodoncia/FaseMantenimiento/fase-mantenimiento";
-import PeriodonciaNoQuirurgico from "./Pages/Triaje/Procedimientos/Periodoncia/NoQuirurgico/no-quirurgico";
-import PeriodonciaQuirurgico from "./Pages/Triaje/Procedimientos/Periodoncia/Quirurgico/quirurgico";
+import PacientePeriodontal from "./Pages/Triaje/Procedimientos/Periodoncia/Periodontal/periodontal";
 
 import ProtesisFija from "./Pages/Triaje/Procedimientos/Protesis/Fija/fija";
 import ProtesisRemovible from "./Pages/Triaje/Procedimientos/Protesis/Removible/removible";
@@ -53,7 +52,7 @@ function App() {
         />
         <Route
           path="/triaje/odontopediatria/operatorio"
-          element={<OdontopediatriaOperativo />}
+          element={<Operativo />}
         />
 
         <Route
@@ -66,12 +65,8 @@ function App() {
         />
 
         <Route
-          path="/triaje/periodoncia/no-quirurgico"
-          element={<PeriodonciaNoQuirurgico />}
-        />
-        <Route
-          path="/triaje/periodoncia/quirurgico"
-          element={<PeriodonciaQuirurgico />}
+          path="/triaje/periodoncia/periodontal"
+          element={<PacientePeriodontal />}
         />
         <Route
           path="/triaje/periodoncia/fase-mantenimiento"

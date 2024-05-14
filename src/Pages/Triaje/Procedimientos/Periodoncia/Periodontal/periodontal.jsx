@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "../../../../../Components/NavBar/navBar";
-import "./control.css"; // Import CSS for endodonciaMolarPage'
+import "./periodontal.css"; // Import CSS for endodonciaMolarPage'
 import postApiLinkGet from "../../../../../API/api-get-request";
 
-const OdontopediatriaControl = () => {
-  const [odontopediatriaControlDataData, setodontopediatriaControlDataData] =
+const PacientePeriodontal = () => {
+  const [PacientePeriodontalDataData, setPacientePeriodontalDataData] =
     useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     console.log("Fetching data...");
-    fetch(postApiLinkGet + "?type=odontopediatria_control")
+    fetch(postApiLinkGet + "?type=paciente_periodontal")
       .then((response) => response.json())
 
       .then((data) => {
         console.log("Fetched data:", data);
-        setodontopediatriaControlDataData(data);
+        setPacientePeriodontalDataData(data);
         setLoading(false);
       })
       .catch((error) => {
@@ -31,8 +31,8 @@ const OdontopediatriaControl = () => {
   return (
     <>
       <NavBar></NavBar>
-      <div className="PacientesodontopediatriaControlData">
-        <h1>Pacientes en Odontopediatria Operativo</h1>
+      <div className="PacientesPacientePeriodontalData">
+        <h1>Pacientes Periodontales</h1>
         <table>
           <thead>
             <tr>
@@ -47,7 +47,7 @@ const OdontopediatriaControl = () => {
             </tr>
           </thead>
           <tbody>
-            {odontopediatriaControlDataData.map((item, index) => (
+            {PacientePeriodontalDataData.map((item, index) => (
               <tr key={index}>
                 <td>{item.cedula.S}</td>
                 <td>{item.nombrePaciente.S}</td>
@@ -66,4 +66,4 @@ const OdontopediatriaControl = () => {
   );
 };
 
-export default OdontopediatriaControl;
+export default PacientePeriodontal;

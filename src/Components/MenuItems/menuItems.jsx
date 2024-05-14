@@ -62,18 +62,12 @@ export const endodonciaDropdown = [
 export const periodonciaDropdown = [
   {
     id: 1,
-    title: "Paciente no quirúrgico",
-    path: "/triaje/periodoncia/no-quirurgico",
+    title: "Paciente Periodontal",
+    path: "/triaje/periodoncia/periodontal",
     cName: "submenu-item",
   },
   {
     id: 2,
-    title: "Paciente quirúrgico",
-    path: "/triaje/periodoncia/quirurgico",
-    cName: "submenu-item",
-  },
-  {
-    id: 3,
     title: "Fase de Mantenimiento",
     path: "/triaje/periodoncia/fase-mantenimiento",
     cName: "submenu-item",

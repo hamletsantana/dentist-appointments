@@ -40,6 +40,7 @@ function Cuestionario() {
       periodoncia: {
         sangrado_encias_cepillado: "",
         perdida_osea_dientes: "",
+        periodoncia_mantenimiento: "",
       },
       restauradora: {
         caries_dientes: "",
@@ -50,17 +51,20 @@ function Cuestionario() {
         areas_perdida_dientes_bilateral: "",
         protesis_fija: "",
         protesis_removible: "",
-        protesis_total: "",
+        protesis_total_superior: "",
+        protesis_total_inferior: "",
       },
       odontopediatria: {
         menor_presenta_caries: "",
         menor_necesita_fluor_instruccions: "",
+        odontopediatria_control: "",
       },
       ortodoncia: {
         paciente_pediatrico_succion_digital: "",
         paciente_pediatrico_interposición_lingual: "",
         paciente_pediatrico_deglucion_atipica: "",
         paciente_pediatrico_succion_labial: "",
+        ortoroncia_control: "",
       },
     },
   };
@@ -607,6 +611,41 @@ function Cuestionario() {
               </Col>
             </Row>
             <Row className="justify-content-md-center">
+              <Col lg="9">
+                <Form.Label>
+                  ¿Paciente dado de alta en su tratamiento quirúrgico/no
+                  quirúrgico, necesita una fase de mantenimiento?
+                </Form.Label>
+                <Form.Select
+                  defaultValue=""
+                  aria-label="Default select example"
+                  {...register(
+                    "procedimientos.periodoncia.periodoncia_mantenimiento",
+                    {
+                      required: "Selección Necesaria",
+                    }
+                  )}
+                >
+                  <option value="" disabled>
+                    Elija una opción
+                  </option>
+                  <option value="Si">Si</option>
+                  <option value="No">No</option>
+                </Form.Select>
+                {errors.procedimientos &&
+                  errors.procedimientos.periodoncia &&
+                  errors.procedimientos.periodoncia
+                    .periodoncia_mantenimiento && (
+                    <Form.Text className="text-danger">
+                      {
+                        errors.procedimientos.periodoncia
+                          .periodoncia_mantenimiento.message
+                      }
+                    </Form.Text>
+                  )}
+              </Col>
+            </Row>
+            <Row className="justify-content-md-center">
               <h2>Restauradora</h2>
               <Col lg="9">
                 <Form.Label>
@@ -787,16 +826,18 @@ function Cuestionario() {
               </Col>
             </Row>
             <Row className="justify-content-md-center">
-              <Col lg="9">
-                <Form.Label>
-                  ¿El paciente necesita una prótesis total?
-                </Form.Label>
+              <p>¿El paciente necesita una prótesis total?</p>
+              <Col lg="4">
+                <Form.Label>Arcada Superior:</Form.Label>
                 <Form.Select
                   defaultValue=""
                   aria-label="Default select example"
-                  {...register("procedimientos.protesis.protesis_total", {
-                    required: "Selección Necesaria",
-                  })}
+                  {...register(
+                    "procedimientos.protesis.protesis_total_superior",
+                    {
+                      required: "Selección Necesaria",
+                    }
+                  )}
                 >
                   <option value="" disabled>
                     Elija una opción
@@ -806,13 +847,46 @@ function Cuestionario() {
                 </Form.Select>
                 {errors.procedimientos &&
                   errors.procedimientos.protesis &&
-                  errors.procedimientos.protesis.protesis_total && (
+                  errors.procedimientos.protesis.protesis_total_superior && (
                     <Form.Text className="text-danger">
-                      {errors.procedimientos.protesis.protesis_total.message}
+                      {
+                        errors.procedimientos.protesis.protesis_total_superior
+                          .message
+                      }
+                    </Form.Text>
+                  )}
+              </Col>
+              <Col lg="5">
+                <Form.Label>Arcada Inferior:</Form.Label>
+                <Form.Select
+                  defaultValue=""
+                  aria-label="Default select example"
+                  {...register(
+                    "procedimientos.protesis.protesis_total_inferior",
+                    {
+                      required: "Selección Necesaria",
+                    }
+                  )}
+                >
+                  <option value="" disabled>
+                    Elija una opción
+                  </option>
+                  <option value="Si">Si</option>
+                  <option value="No">No</option>
+                </Form.Select>
+                {errors.procedimientos &&
+                  errors.procedimientos.protesis &&
+                  errors.procedimientos.protesis.protesis_total_inferior && (
+                    <Form.Text className="text-danger">
+                      {
+                        errors.procedimientos.protesis.protesis_total_inferior
+                          .message
+                      }
                     </Form.Text>
                   )}
               </Col>
             </Row>
+
             <Row className="justify-content-md-center">
               <h2>Odontopediatría</h2>
               <Col lg="9">
@@ -880,6 +954,42 @@ function Cuestionario() {
                       {
                         errors.procedimientos.odontopediatria
                           .menor_necesita_fluor_instruccions.message
+                      }
+                    </Form.Text>
+                  )}
+              </Col>
+            </Row>
+            <Row className="justify-content-md-center">
+              <Col lg="9">
+                <Form.Label>
+                  ¿Paciente pediátrico, dado de alta en su tratamiento
+                  definitivo, necesita que se le realice un tratamiento de
+                  control?
+                </Form.Label>
+                <Form.Select
+                  defaultValue=""
+                  aria-label="Default select example"
+                  {...register(
+                    "procedimientos.odontopediatria.odontopediatria_control",
+                    {
+                      required: "Selección Necesaria",
+                    }
+                  )}
+                >
+                  <option value="" disabled>
+                    Elija una opción
+                  </option>
+                  <option value="Si">Si</option>
+                  <option value="No">No</option>
+                </Form.Select>
+                {errors.procedimientos &&
+                  errors.procedimientos.odontopediatria &&
+                  errors.procedimientos.odontopediatria
+                    .odontopediatria_control && (
+                    <Form.Text className="text-danger">
+                      {
+                        errors.procedimientos.odontopediatria
+                          .odontopediatria_control.message
                       }
                     </Form.Text>
                   )}
@@ -1011,6 +1121,37 @@ function Cuestionario() {
                       {
                         errors.procedimientos.ortodoncia
                           .paciente_pediatrico_succion_labial.message
+                      }
+                    </Form.Text>
+                  )}
+              </Col>
+            </Row>
+            <Row className="justify-content-md-center">
+              <Col lg="9">
+                <Form.Label>
+                  ¿El paciente tiene algún aparato ortodóntico y necesita que le
+                  realicen un control ortodóntico?
+                </Form.Label>
+                <Form.Select
+                  defaultValue=""
+                  aria-label="Default select example"
+                  {...register("procedimientos.ortodoncia.ortodoncia_control", {
+                    required: "Selección Necesaria",
+                  })}
+                >
+                  <option value="" disabled>
+                    Elija una opción
+                  </option>
+                  <option value="Si">Si</option>
+                  <option value="No">No</option>
+                </Form.Select>
+                {errors.procedimientos &&
+                  errors.procedimientos.ortodoncia &&
+                  errors.procedimientos.ortodoncia.ortodoncia_control && (
+                    <Form.Text className="text-danger">
+                      {
+                        errors.procedimientos.ortodoncia.ortodoncia_control
+                          .message
                       }
                     </Form.Text>
                   )}
