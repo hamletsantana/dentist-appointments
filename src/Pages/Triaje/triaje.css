@@ -1,5 +1,17 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+.triaje_bg {
+    position: fixed;
+    top: 50%; /* Adjust the vertical position */
+    left: 0;
+    width: 100%;
+    height: auto; /* Change height to auto to maintain aspect ratio */
+    transform: translateY(-35%); /* Center the image vertically */
+    object-fit: cover;
+    opacity: 0.9;
+    z-index: -1;
 }

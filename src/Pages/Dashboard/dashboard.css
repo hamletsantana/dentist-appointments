@@ -3,8 +3,10 @@
     
   }
 .Dashboard{
-    background-color: #ebebeb;
+    background-image: url(/src/Images/dashboard_bg.png);
     height: 100vh;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
 
 .Nav{
