@@ -42,6 +42,39 @@
     margin-right: 100px;
   }
 
-  .detallesPacientes{
-    
+  .detallesPacientes {
+    background-color: #047D95; /* Green */
+    border: none;
+    color: white;
+    padding: 8px 14px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
   }
+  
+  .detallesPacientes:hover {
+    background-color: #124d59;
+  }
+  
+  /* Additional info grid layout */
+  .additional-info {
+    background-color: #f9f9f9; /* Light grey background */
+    padding: 20px; /* Some padding */
+    margin-top: 10px; /* Some margin at the top */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 8px; /* Rounded corners */
+    display: grid; /* Use grid layout */
+    grid-template-columns: repeat(auto-fit, minmax(1000px, 1fr)); /* Responsive columns */
+    gap: 10px; /* Gap between items */
+  }
+  
+  .attribute {
+    margin: 0 0 10px 0; /* Margin for attribute containers */
+    font-size: 14px; /* Font size for attributes */
+    color: #333; /* Dark grey text */
+  }
+  

@@ -1,5 +1,6 @@
 import "./cuestionario.css";
 import React, { useState } from "react";
+import dientes from "../../Images/dientes.jpg";
 import Authenticate from "../../Components/Authenticator/authenticator";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -15,6 +16,7 @@ function Cuestionario() {
   const initState = {
     fecha: "",
     cedula: "",
+    cedula_paciente: "",
     nombrePaciente: "",
     apellidoPaciente: "",
     edadPaciente: "",
@@ -132,6 +134,11 @@ function Cuestionario() {
     .toISOString()
     .split("T")[0];
 
+  const openImageInNewTab = () => {
+    const newTab = window.open();
+    newTab.document.body.innerHTML = `<img src="${dientes}" alt="Dientes" style="max-width:100%; height:auto;">`;
+  };
+
   return (
     <>
       <section className="Cuestionario">
@@ -153,7 +160,7 @@ function Cuestionario() {
             <Row className="justify-content-md-center">
               <h2>Datos Generales</h2>
               <Col lg="9">
-                <Form.Label>Fecha</Form.Label>
+                <Form.Label class="required-field">Fecha</Form.Label>
                 <Form.Control
                   placeholder="Fecha"
                   type="date"
@@ -171,23 +178,23 @@ function Cuestionario() {
             </Row>
             <Row className="justify-content-md-center">
               <Col lg="3">
-                <Form.Label>Cédula</Form.Label>
+                <Form.Label class="required-field">Código</Form.Label>
                 <Form.Control
-                  placeholder="402-5555555-5 o 40255555555"
+                  placeholder="2024-55555"
                   {...register("cedula", {
-                    required: "Cédula es obligatoria",
+                    required: "El Código es obligatorio",
                     minLength: {
-                      value: 11,
-                      message: "La cédula debe tener al menos 11 caracteres",
+                      value: 10,
+                      message: "El código debe tener 10 caracteres",
                     },
                     maxLength: {
-                      value: 13,
-                      message: "La cédula debe tener máximo 13 caracteres",
+                      value: 10,
+                      message: "El código debe tener 10 caracteres",
                     },
                     pattern: {
                       value: /^[0-9\-]+$/,
                       message:
-                        "La cédula solo puede contener números y el guión (-)",
+                        "La código solo puede contener números y el guión (-)",
                     },
                   })}
                 ></Form.Control>
@@ -201,7 +208,7 @@ function Cuestionario() {
                 )}
               </Col>
               <Col lg="3">
-                <Form.Label>Nombre</Form.Label>
+                <Form.Label class="required-field">Nombre</Form.Label>
                 <Form.Control
                   placeholder="Nombre"
                   {...register("nombrePaciente", {
@@ -223,7 +230,7 @@ function Cuestionario() {
                 )}
               </Col>
               <Col lg="3">
-                <Form.Label>Apellido</Form.Label>
+                <Form.Label class="required-field">Apellido</Form.Label>
                 <Form.Control
                   placeholder="Apellido"
                   {...register("apellidoPaciente", {
@@ -248,7 +255,9 @@ function Cuestionario() {
             </Row>
             <Row className="justify-content-md-center">
               <Col lg="3">
-                <Form.Label>Fecha de Nacimiento</Form.Label>
+                <Form.Label class="required-field">
+                  Fecha de Nacimiento
+                </Form.Label>
                 <Form.Control
                   placeholder="Fecha de Nacimiento"
                   type="date"
@@ -265,7 +274,7 @@ function Cuestionario() {
                 )}
               </Col>
               <Col lg="3">
-                <Form.Label>Teléfono</Form.Label>
+                <Form.Label class="required-field">Teléfono</Form.Label>
                 <Form.Control
                   placeholder="809-555-5555"
                   {...register("telefonoPaciente", {
@@ -296,22 +305,39 @@ function Cuestionario() {
                 )}
               </Col>
               <Col lg="3">
-                <Form.Label>Emergencia Médica</Form.Label>
+                <Form.Label class="required-field">Cédula</Form.Label>
                 <Form.Control
-                  placeholder="Emergencia Medica"
-                  {...register("emergenciaMedica", {
+                  placeholder="402-5555555-5 o 40255555555"
+                  {...register("cedula_paciente", {
+                    required: "Cédula es obligatoria",
+                    minLength: {
+                      value: 11,
+                      message: "La cédula debe tener al menos 11 caracteres",
+                    },
                     maxLength: {
-                      value: 25,
+                      value: 13,
+                      message: "La cédula debe tener máximo 13 caracteres",
+                    },
+                    pattern: {
+                      value: /^[0-9\-]+$/,
                       message:
-                        "Apellido no puede contener más de 25 caracteres",
+                        "La cédula solo puede contener números y el guión (-)",
                     },
                   })}
                 ></Form.Control>
+                {errors.cedula_paciente && errors.cedula_paciente.type && (
+                  <Form.Text className="text-danger">
+                    {
+                      (errors.cedula_paciente.message =
+                        "Campo Obligatorio: Mínimo 11 números y el guión es aceptado")
+                    }
+                  </Form.Text>
+                )}
               </Col>
             </Row>
             <Row className="justify-content-md-center">
-              <Col lg="9">
-                <Form.Label>Dirección</Form.Label>
+              <Col lg="5">
+                <Form.Label class="required-field">Dirección</Form.Label>
                 <Form.Control
                   placeholder="Calle. Sector. Municipio"
                   {...register("direccionPaciente", {
@@ -328,11 +354,24 @@ function Cuestionario() {
                   </Form.Text>
                 )}
               </Col>
+              <Col lg="4">
+                <Form.Label>Emergencia Médica</Form.Label>
+                <Form.Control
+                  placeholder="Emergencia Medica"
+                  {...register("emergenciaMedica", {
+                    maxLength: {
+                      value: 25,
+                      message:
+                        "Emergencia no puede contener más de 25 caracteres",
+                    },
+                  })}
+                ></Form.Control>
+              </Col>
             </Row>
             <Row className="justify-content-md-center">
               <h2>Cirugía</h2>
               <Col lg="9">
-                <Form.Label>
+                <Form.Label class="required-field">
                   ¿El paciente presenta dientes con ninguna posibilidad de ser
                   restaurables?
                 </Form.Label>
@@ -367,16 +406,28 @@ function Cuestionario() {
             <Row className="justify-content-md-center">
               <h2>Endodoncia</h2>
               <Col lg="9">
-                <Form.Label>¿Qué diente/dientes?</Form.Label>
+                <Form.Label class="required-field">
+                  ¿Qué diente/dientes?
+                </Form.Label>
               </Col>
               <SeleccionDientes setValue={setValue} control={control} />
             </Row>
+
+            <div className="image-container">
+              <img
+                src={dientes}
+                className="ImagenDientes"
+                alt="Dientes"
+                onClick={openImageInNewTab}
+              />
+            </div>
+
             <Row className="justify-content-md-center endodoncia">
               <p className="endodonciaP">
                 ¿El paciente presenta sintomatología dolorosa?
               </p>
               <Col lg="2">
-                <Form.Label>Frío:</Form.Label>
+                <Form.Label class="required-field">Frío:</Form.Label>
                 <Form.Select
                   defaultValue=""
                   aria-label="Default select example"
@@ -399,7 +450,7 @@ function Cuestionario() {
                   )}
               </Col>
               <Col lg="2">
-                <Form.Label>Calor:</Form.Label>
+                <Form.Label class="required-field">Calor:</Form.Label>
                 <Form.Select
                   defaultValue=""
                   aria-label="Default select example"
@@ -425,7 +476,7 @@ function Cuestionario() {
                   )}
               </Col>
               <Col lg="2">
-                <Form.Label>Masticación:</Form.Label>
+                <Form.Label class="required-field">Masticación:</Form.Label>
                 <Form.Select
                   defaultValue=""
                   aria-label="Default select example"
@@ -454,7 +505,7 @@ function Cuestionario() {
                   )}
               </Col>
               <Col lg="2">
-                <Form.Label>Palpación:</Form.Label>
+                <Form.Label class="required-field">Palpación:</Form.Label>
                 <Form.Select
                   defaultValue=""
                   aria-label="Default select example"
@@ -483,7 +534,7 @@ function Cuestionario() {
                   )}
               </Col>
               <Col lg="2">
-                <Form.Label>Percusión:</Form.Label>
+                <Form.Label class="required-field">Percusión:</Form.Label>
                 <Form.Select
                   defaultValue=""
                   aria-label="Default select example"
@@ -514,7 +565,9 @@ function Cuestionario() {
             </Row>
             <Row className="justify-content-md-center">
               <Col lg="9">
-                <Form.Label>¿El paciente está inflamado?</Form.Label>
+                <Form.Label class="required-field">
+                  ¿El paciente está inflamado?
+                </Form.Label>
                 <Form.Select
                   defaultValue=""
                   aria-label="Default select example"
@@ -543,7 +596,7 @@ function Cuestionario() {
             <Row className="justify-content-md-center">
               <h2>Periodoncia</h2>
               <Col lg="9">
-                <Form.Label>
+                <Form.Label class="required-field">
                   ¿El paciente se queja de sangrado de las encías al cepillarse?
                 </Form.Label>
                 <Form.Select
@@ -578,7 +631,7 @@ function Cuestionario() {
             </Row>
             <Row className="justify-content-md-center">
               <Col lg="9">
-                <Form.Label>
+                <Form.Label class="required-field">
                   ¿En el examen radiográfico se observa pérdida ósea en los
                   dientes?
                 </Form.Label>
@@ -612,7 +665,7 @@ function Cuestionario() {
             </Row>
             <Row className="justify-content-md-center">
               <Col lg="9">
-                <Form.Label>
+                <Form.Label class="required-field">
                   ¿Paciente dado de alta en su tratamiento quirúrgico/no
                   quirúrgico, necesita una fase de mantenimiento?
                 </Form.Label>
@@ -648,7 +701,7 @@ function Cuestionario() {
             <Row className="justify-content-md-center">
               <h2>Restauradora</h2>
               <Col lg="9">
-                <Form.Label>
+                <Form.Label class="required-field">
                   ¿El paciente presenta caries en algún órgano dental?
                 </Form.Label>
                 <Form.Select
@@ -679,7 +732,9 @@ function Cuestionario() {
             </Row>
             <Row className="justify-content-md-center">
               <Col lg="9">
-                <Form.Label>¿El paciente necesita una profilaxis?</Form.Label>
+                <Form.Label class="required-field">
+                  ¿El paciente necesita una profilaxis?
+                </Form.Label>
                 <Form.Select
                   defaultValue=""
                   aria-label="Default select example"
@@ -712,7 +767,7 @@ function Cuestionario() {
               <h2>Prótesis</h2>
               <p>¿El paciente presenta áreas de pérdida de dientes?</p>
               <Col lg="4">
-                <Form.Label>Unilateral:</Form.Label>
+                <Form.Label class="required-field">Unilateral:</Form.Label>
                 <Form.Select
                   defaultValue=""
                   aria-label="Default select example"
@@ -743,7 +798,7 @@ function Cuestionario() {
                   )}
               </Col>
               <Col lg="5">
-                <Form.Label>Bilateral:</Form.Label>
+                <Form.Label class="required-field">Bilateral:</Form.Label>
                 <Form.Select
                   defaultValue=""
                   aria-label="Default select example"
@@ -776,7 +831,7 @@ function Cuestionario() {
             <Row className="justify-content-md-center">
               <p>¿Es necesario realizarse una prótesis?</p>
               <Col lg="4">
-                <Form.Label>Fija:</Form.Label>
+                <Form.Label class="required-field">Fija:</Form.Label>
                 <Form.Select
                   defaultValue=""
                   aria-label="Default select example"
@@ -799,7 +854,7 @@ function Cuestionario() {
                   )}
               </Col>
               <Col lg="5">
-                <Form.Label>Removible:</Form.Label>
+                <Form.Label class="required-field">Removible:</Form.Label>
                 <Form.Select
                   defaultValue=""
                   aria-label="Default select example"
@@ -828,7 +883,7 @@ function Cuestionario() {
             <Row className="justify-content-md-center">
               <p>¿El paciente necesita una prótesis total?</p>
               <Col lg="4">
-                <Form.Label>Arcada Superior:</Form.Label>
+                <Form.Label class="required-field">Arcada Superior:</Form.Label>
                 <Form.Select
                   defaultValue=""
                   aria-label="Default select example"
@@ -857,7 +912,7 @@ function Cuestionario() {
                   )}
               </Col>
               <Col lg="5">
-                <Form.Label>Arcada Inferior:</Form.Label>
+                <Form.Label class="required-field">Arcada Inferior:</Form.Label>
                 <Form.Select
                   defaultValue=""
                   aria-label="Default select example"
@@ -890,7 +945,7 @@ function Cuestionario() {
             <Row className="justify-content-md-center">
               <h2>Odontopediatría</h2>
               <Col lg="9">
-                <Form.Label>
+                <Form.Label class="required-field">
                   ¿Paciente menor de 12 años presenta caries dental en algún
                   órgano dentario?
                 </Form.Label>
@@ -926,7 +981,7 @@ function Cuestionario() {
             </Row>
             <Row className="justify-content-md-center">
               <Col lg="9">
-                <Form.Label>
+                <Form.Label class="required-field">
                   ¿Paciente menor de 12 años necesita sellantes de flúor e
                   instrucciones de higiene oral?
                 </Form.Label>
@@ -961,10 +1016,9 @@ function Cuestionario() {
             </Row>
             <Row className="justify-content-md-center">
               <Col lg="9">
-                <Form.Label>
-                  ¿Paciente pediátrico, dado de alta en su tratamiento
-                  definitivo, necesita que se le realice un tratamiento de
-                  control?
+                <Form.Label class="required-field">
+                  ¿Paciente dado de alta en su tratamiento definitivo, necesita
+                  que se le realice un tratamiento de control?
                 </Form.Label>
                 <Form.Select
                   defaultValue=""
@@ -1001,7 +1055,7 @@ function Cuestionario() {
                 ¿Paciente pediátrico padece de algún hábito?
               </p>
               <Col lg="2">
-                <Form.Label>Succión digital:</Form.Label>
+                <Form.Label class="required-field">Succión digital:</Form.Label>
                 <Form.Select
                   defaultValue=""
                   aria-label="Default select example"
@@ -1036,7 +1090,9 @@ function Cuestionario() {
                   )}
               </Col>
               <Col lg="3">
-                <Form.Label>Interposición lingual: </Form.Label>
+                <Form.Label class="required-field">
+                  Interposición lingual:{" "}
+                </Form.Label>
                 <Form.Select
                   defaultValue=""
                   aria-label="Default select example"
@@ -1066,7 +1122,9 @@ function Cuestionario() {
                   )}
               </Col>
               <Col lg="2">
-                <Form.Label>Deglución atípica: </Form.Label>
+                <Form.Label class="required-field">
+                  Deglución atípica:{" "}
+                </Form.Label>
                 <Form.Select
                   defaultValue=""
                   aria-label="Default select example"
@@ -1096,7 +1154,7 @@ function Cuestionario() {
                   )}
               </Col>
               <Col lg="2">
-                <Form.Label>Succión labial: </Form.Label>
+                <Form.Label class="required-field">Succión labial: </Form.Label>
                 <Form.Select
                   defaultValue=""
                   aria-label="Default select example"
@@ -1128,7 +1186,7 @@ function Cuestionario() {
             </Row>
             <Row className="justify-content-md-center">
               <Col lg="9">
-                <Form.Label>
+                <Form.Label class="required-field">
                   ¿El paciente tiene algún aparato ortodóntico y necesita que le
                   realicen un control ortodóntico?
                 </Form.Label>

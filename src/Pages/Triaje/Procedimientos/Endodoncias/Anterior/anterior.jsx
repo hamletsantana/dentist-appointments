@@ -55,7 +55,7 @@ const Anterior = () => {
         <table>
           <thead>
             <tr>
-              <th>Cédula</th>
+              <th>Código</th>
               <th>Nombre</th>
               <th>Apellido</th>
               <th>Fecha de Nacimiento</th>
@@ -90,7 +90,7 @@ const Anterior = () => {
                     <td colSpan="8">
                       <div className="additional-info">
                         <div className="attribute">
-                          <strong>Cédula:</strong> {item.cedula.S}
+                          <strong>Código:</strong> {item.cedula.S}
                         </div>
                         <div className="attribute">
                           <strong>Nombre:</strong> {item.nombrePaciente.S}

@@ -7,6 +7,7 @@ const PacientePeriodontal = () => {
   const [PacientePeriodontalDataData, setPacientePeriodontalDataData] =
     useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedItemIndex, setSelectedItemIndex] = useState(null);
 
   useEffect(() => {
     console.log("Fetching data...");
@@ -24,6 +25,10 @@ const PacientePeriodontal = () => {
       });
   }, []);
 
+  const toggleItem = (index) => {
+    setSelectedItemIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -36,28 +41,88 @@ const PacientePeriodontal = () => {
         <table>
           <thead>
             <tr>
-              <th>Cédula</th>
+              <th>Código</th>
               <th>Nombre</th>
               <th>Apellido</th>
               <th>Fecha de Nacimiento</th>
               <th>Dirección</th>
               <th>Teléfono</th>
               <th>Emergencia Médica</th>
-              {/* Add more table headers as needed */}
+              <th></th>
             </tr>
           </thead>
           <tbody>
             {PacientePeriodontalDataData.map((item, index) => (
-              <tr key={index}>
-                <td>{item.cedula.S}</td>
-                <td>{item.nombrePaciente.S}</td>
-                <td>{item.apellidoPaciente.S}</td>
-                <td>{item.edadPaciente.S}</td>
-                <td>{item.direccionPaciente.S}</td>
-                <td>{item.telefonoPaciente.S}</td>
-                <td>{item.emergenciaMedica.S}</td>
-                {/* Add more table cells as needed */}
-              </tr>
+              <React.Fragment key={index}>
+                <tr>
+                  <td>{item.cedula.S}</td>
+                  <td>{item.nombrePaciente.S}</td>
+                  <td>{item.apellidoPaciente.S}</td>
+                  <td>{item.edadPaciente.S}</td>
+                  <td>{item.direccionPaciente.S}</td>
+                  <td>{item.telefonoPaciente.S}</td>
+                  <td>{item.emergenciaMedica.S}</td>
+                  <td>
+                    <button
+                      className="detallesPacientes"
+                      onClick={() => toggleItem(index)}
+                    >
+                      Detalles
+                    </button>
+                  </td>
+                </tr>
+                {selectedItemIndex === index && (
+                  <tr>
+                    <td colSpan="8">
+                      <div className="additional-info">
+                        <div className="attribute">
+                          <strong>Código:</strong> {item.cedula.S}
+                        </div>
+                        <div className="attribute">
+                          <strong>Nombre:</strong> {item.nombrePaciente.S}
+                        </div>
+                        <div className="attribute">
+                          <strong>Apellido:</strong> {item.apellidoPaciente.S}
+                        </div>
+                        <div className="attribute">
+                          <strong>Fecha de Nacimiento:</strong>{" "}
+                          {item.edadPaciente.S}
+                        </div>
+                        <div className="attribute">
+                          <strong>Dirección:</strong> {item.direccionPaciente.S}
+                        </div>
+                        <div className="attribute">
+                          <strong>Teléfono:</strong> {item.telefonoPaciente.S}
+                        </div>
+                        <div className="attribute">
+                          <strong>Emergencia Médica:</strong>{" "}
+                          {item.emergenciaMedica.S}
+                        </div>
+                        <div className="attribute">
+                          <strong>
+                            ¿El paciente se queja de sangrado de las encías al
+                            cepillarse?
+                          </strong>{" "}
+                          {
+                            item.procedimientos?.M?.periodoncia?.M
+                              ?.sangrado_encias_cepillado?.S
+                          }
+                        </div>
+                        <div className="attribute">
+                          <strong>
+                            ¿En el examen radiográfico se observa pérdida ósea
+                            en los dientes?
+                          </strong>{" "}
+                          {
+                            item.procedimientos?.M?.periodoncia?.M
+                              ?.perdida_osea_dientes?.S
+                          }
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                )}
+              </React.Fragment>
             ))}
           </tbody>
         </table>

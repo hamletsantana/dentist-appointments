@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Form, Row, Col, Button } from "react-bootstrap";
 import NavBar from "../../../../Components/NavBar/navBar";
 import "./cirugias.css"; // Import CSS for CirugiasPage
 import postApiLinkGet from "../../../../API/api-get-request";
@@ -7,6 +8,15 @@ const Cirugias = () => {
   const [cirugiasData, setCirugiasData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedItemIndex, setSelectedItemIndex] = useState(null);
+  const [showFormIndex, setShowFormIndex] = useState(null);
+  const [formData, setFormData] = useState({
+    cirugia_check: "", // Add this field
+    fecha: "", // Add this field
+    cedula: "",
+    matriculaEstudiante: "",
+    nombreEstudiante: "",
+    apellidoEstudiante: "",
+  });
 
   useEffect(() => {
     console.log("Fetching data...");
@@ -24,7 +34,71 @@ const Cirugias = () => {
   }, []);
 
   const toggleItem = (index) => {
+    // Close the "Asignar" dropdown if it's open
+    if (showFormIndex === index) {
+      setShowFormIndex(null);
+    }
+    // Toggle the "Detalles" dropdown
     setSelectedItemIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
+
+  const toggleForm = (index) => {
+    // Close the "Detalles" dropdown if it's open
+    if (selectedItemIndex === index) {
+      setSelectedItemIndex(null);
+    }
+
+    // Toggle the "Asignar" dropdown
+    setShowFormIndex((prevIndex) => (prevIndex === index ? null : index));
+    if (showFormIndex !== index) {
+      const item = cirugiasData[index];
+      setFormData({
+        cedula: item.cedula.S, // Ensure this is correct
+        fecha: item.fecha.S, // Ensure this is correct
+        cedula: item.cedula.S,
+        matriculaEstudiante: "",
+        nombreEstudiante: "",
+        apellidoEstudiante: "",
+      });
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetch(
+      "https://3lmv2y6pmb.execute-api.us-east-1.amazonaws.com/development/dentist-appointment-update-request",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      }
+    )
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then((data) => {
+            throw new Error(
+              `Network response was not ok: ${JSON.stringify(data)}`
+            );
+          });
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Updated data:", data);
+        // Optionally update the local state or refetch data if necessary
+        window.location.reload();
+      })
+      .catch((error) => console.error("Error updating data:", error));
   };
 
   if (loading) {
@@ -39,7 +113,7 @@ const Cirugias = () => {
         <table>
           <thead>
             <tr>
-              <th>Cédula</th>
+              <th>Código</th>
               <th>Nombre</th>
               <th>Apellido</th>
               <th>Fecha de Nacimiento</th>
@@ -67,6 +141,12 @@ const Cirugias = () => {
                     >
                       Detalles
                     </button>
+                    <button
+                      className="asignarPacientes"
+                      onClick={() => toggleForm(index)}
+                    >
+                      Asignar
+                    </button>
                   </td>
                 </tr>
                 {selectedItemIndex === index && (
@@ -74,7 +154,7 @@ const Cirugias = () => {
                     <td colSpan="8">
                       <div className="additional-info">
                         <div className="attribute">
-                          <strong>Cédula:</strong> {item.cedula.S}
+                          <strong>Código:</strong> {item.cedula.S}
                         </div>
                         <div className="attribute">
                           <strong>Nombre:</strong> {item.nombrePaciente.S}
@@ -97,6 +177,10 @@ const Cirugias = () => {
                           {item.emergenciaMedica.S}
                         </div>
                         <div className="attribute">
+                          <strong>Nombre Estudiante:</strong>{" "}
+                          {item.nombreEstudiante.S}
+                        </div>
+                        <div className="attribute">
                           <strong>
                             ¿El paciente presenta dientes con ninguna
                             posibilidad de ser restaurables?
@@ -106,6 +190,74 @@ const Cirugias = () => {
                               ?.diente_sin_restauracion?.S
                           }
                         </div>
+                      </div>
+                    </td>
+                  </tr>
+                )}
+                {showFormIndex === index && (
+                  <tr>
+                    <td colSpan="8">
+                      <div className="form-container">
+                        <Form
+                          onSubmit={handleSubmit}
+                          style={{
+                            backgroundColor: "#f8f9fa",
+                            padding: "10px",
+                            marginTop: "5px",
+                          }}
+                        >
+                          <Row className="form-row">
+                            <Col lg="5">
+                              <Form.Group controlId="formMatriculaEstudiante">
+                                <Form.Label>
+                                  Matrícula del Estudiante
+                                </Form.Label>
+                                <Form.Control
+                                  type="text"
+                                  placeholder="Matrícula del Estudiante"
+                                  value={formData.matriculaEstudiante}
+                                  name="matriculaEstudiante"
+                                  onChange={handleChange}
+                                />
+                              </Form.Group>
+                            </Col>
+                          </Row>
+                          <Row className="form-row">
+                            <Col lg="5">
+                              <Form.Group controlId="formNombreEstudiante">
+                                <Form.Label>Nombre del Estudiante</Form.Label>
+                                <Form.Control
+                                  type="text"
+                                  placeholder="Nombre del Estudiante"
+                                  value={formData.nombreEstudiante}
+                                  name="nombreEstudiante"
+                                  onChange={handleChange}
+                                />
+                              </Form.Group>
+                            </Col>
+                          </Row>
+                          <Row className="form-row">
+                            <Col lg="5">
+                              <Form.Group controlId="formApellidoEstudiante">
+                                <Form.Label>Apellido del Estudiante</Form.Label>
+                                <Form.Control
+                                  type="text"
+                                  placeholder="Apellido del Estudiante"
+                                  value={formData.apellidoEstudiante}
+                                  name="apellidoEstudiante"
+                                  onChange={handleChange}
+                                />
+                              </Form.Group>
+                            </Col>
+                          </Row>
+                          <Button
+                            variant="primary"
+                            type="submit"
+                            className="asignarEstudiante"
+                          >
+                            Asignar Estudiante
+                          </Button>
+                        </Form>
                       </div>
                     </td>
                   </tr>

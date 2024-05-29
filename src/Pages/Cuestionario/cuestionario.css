@@ -88,3 +88,24 @@ Form{
     margin-top: 60px;
 }
 
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .ImagenDientes {
+    width: 20%;
+    height: auto;
+    display: block;
+    cursor: pointer;
+  }
+
+  .required-field::after {
+    content: "*";
+    color: red;
+    float: right;
+    margin-left: 5px;
+  }
