@@ -5,6 +5,7 @@ import Home from "./Pages/LoginPage/homePage";
 import Dashboard from "./Pages/Dashboard/dashboard";
 import Cuestionario from "./Pages/Cuestionario/cuestionario";
 import Triaje from "./Pages/Triaje/triaje";
+import BuscarPacientes from "./Pages/BuscarPacientes/buscar-pacientes";
 
 import Cirugias from "./Pages/Triaje/Procedimientos/Cirugias/cirugias";
 import Anterior from "./Pages/Triaje/Procedimientos/Endodoncias/Anterior/anterior";
@@ -35,6 +36,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/cuestionario" element={<Cuestionario />} />
         <Route path="/triaje" element={<Triaje />} />
+        <Route path="/buscar-pacientes" element={<BuscarPacientes />} />
 
         <Route path="/triaje/cirugias" element={<Cirugias />} />
 

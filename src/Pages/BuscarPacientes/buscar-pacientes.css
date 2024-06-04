@@ -1,0 +1,61 @@
+body, html {
+    height: 100%;
+    margin: 0;
+  }
+
+.Pacientes{
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.contenedorPacientes {
+    overflow-x: auto; /* Ensure the table is scrollable on smaller screens */
+  }
+
+  .informacionAdicional {
+    background-color: #f9f9f9; /* Light grey background */
+    padding: 20px; /* Some padding */
+    margin-top: 10px; /* Some margin at the top */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 8px; /* Rounded corners */
+    display: grid; /* Use grid layout */
+    grid-template-columns: repeat(auto-fit, minmax(1000px, 1fr)); /* Responsive columns */
+    gap: 10px; /* Gap between items */
+  }
+
+  .hideRow {
+    display: none;
+  }
+
+  .highlight {
+    background-color: yellow;
+  }
+  
+  .informacionAdicional {
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    margin-top: 10px;
+  }
+
+  .atributo {
+    margin: 0 0 10px 0; /* Margin for attribute containers */
+    font-size: 14px; /* Font size for attributes */
+    color: #333; /* Dark grey text */
+  }
+  
+  .search-bar {
+    width: 50%;
+    padding: 5px;
+    margin-top:20px;
+    transform: translateX(50%);
+    margin-bottom: 20px;
+    border: 2px solid #047d95; 
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
+  }
+  
+  .search-bar:focus {
+    border-color: #124d59;
+  }

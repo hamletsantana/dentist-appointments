@@ -4,6 +4,7 @@ import Authenticate from "../../Components/Authenticator/authenticator";
 import { useNavigate } from "react-router-dom";
 import unibe from "../../Images/logo_unibe.png";
 import { fetchUserAttributes } from "aws-amplify/auth";
+import BuscarPacientes from "../BuscarPacientes/buscar-pacientes";
 
 function Dashboard() {
   const [userEmail, setUserEmail] = useState("");
@@ -31,6 +32,9 @@ function Dashboard() {
   const handleClickNoTriaje = () => {
     navigate("/cuestionario");
   };
+  const handleClickBuscarPacientes = () => {
+    navigate("/buscar-pacientes");
+  };
 
   return (
     <section className="Dashboard">
@@ -46,6 +50,12 @@ function Dashboard() {
                 </p>
               )}
             </div>
+            <button
+              className="buttonBuscarPaciente"
+              onClick={handleClickBuscarPacientes}
+            >
+              Buscar Paciente
+            </button>
             <Authenticate className="SignOutDashboard" />
           </div>
         </div>

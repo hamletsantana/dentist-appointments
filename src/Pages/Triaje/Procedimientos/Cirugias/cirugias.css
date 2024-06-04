@@ -98,6 +98,14 @@ tr:hover {
   gap: 10px; /* Gap between items */
 }
 
+.additional-info {
+  padding: 10px;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  margin-top: 10px;
+}
+
+
 .form-container {
   background-color: #f8f9fa; /* Match the dropdown background color */
   padding: 10px; /* Add padding for spacing */

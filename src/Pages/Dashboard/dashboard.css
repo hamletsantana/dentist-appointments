@@ -53,8 +53,21 @@
 .button1 {font-size: 50px;}
 .button2 {font-size: 50px;}
 
+.buttonBuscarPaciente{
+  margin-right: 20px;
+    background-color: #047D95; 
+    color: #ffffff; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 10px; 
+    cursor: pointer; 
+    font-size: 16px; 
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
 
-
+.buttonBuscarPaciente:hover {
+  background-color: #124d59; /* Darker background color on hover */
+}
 
 
 
