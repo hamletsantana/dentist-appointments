@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form";
 import SeleccionDientes from "../../Components/Procedimientos/Endodoncia/endodoncia_dientes";
 import { useNavigate } from "react-router-dom";
 import postApiLinkPost from "../../API/api-post-request";
+import unibe from "../../Images/logo_unibe.png";
 
 function Cuestionario() {
   const initState = {
@@ -23,9 +24,51 @@ function Cuestionario() {
     telefonoPaciente: "",
     emergenciaMedica: "",
     direccionPaciente: "",
-    matriculaEstudiante: "",
-    nombreEstudiante: "",
-    apellidoEstudiante: "",
+    matriculaEstudiante_cirugia: "",
+    nombreEstudiante_cirugia: "",
+    apellidoEstudiante_cirugia: "",
+    matriculaEstudiante_endodoncia_anterior: "",
+    nombreEstudiante_endodoncia_anterior: "",
+    apellidoEstudiante_endodoncia_anterior: "",
+    matriculaEstudiante_endodoncia_molar: "",
+    nombreEstudiante_endodoncia_molar: "",
+    apellidoEstudiante_endodoncia_molar: "",
+    matriculaEstudiante_endodoncia_preMolar: "",
+    nombreEstudiante_endodoncia_preMolar: "",
+    apellidoEstudiante_endodoncia_preMolar: "",
+    matriculaEstudiante_periodoncia_periodontal: "",
+    nombreEstudiante_periodoncia_periodontal: "",
+    apellidoEstudiante_periodoncia_periodontal: "",
+    matriculaEstudiante_periodoncia_mantenimiento: "",
+    nombreEstudiante_periodoncia_mantenimiento: "",
+    apellidoEstudiante_periodoncia_mantenimiento: "",
+    matriculaEstudiante_restauraciones: "",
+    nombreEstudiante_restauraciones: "",
+    apellidoEstudiante_restauraciones: "",
+    matriculaEstudiante_protesis_total: "",
+    nombreEstudiante_protesis_total: "",
+    apellidoEstudiante_protesis_total: "",
+    matriculaEstudiante_protesis_removible: "",
+    nombreEstudiante_protesis_removible: "",
+    apellidoEstudiante_protesis_removible: "",
+    matriculaEstudiante_protesis_fija: "",
+    nombreEstudiante_protesis_fija: "",
+    apellidoEstudiante_protesis_fija: "",
+    matriculaEstudiante_odontopediatria_no_operatorio: "",
+    nombreEstudiante_odontopediatria_no_operatorio: "",
+    apellidoEstudiante_odontopediatria_no_operatorio: "",
+    matriculaEstudiante_odontopediatria_operatorio: "",
+    nombreEstudiante_odontopediatria_operatorio: "",
+    apellidoEstudiante_odontopediatria_operatorio: "",
+    matriculaEstudiante_odontopediatria_control: "",
+    nombreEstudiante_odontopediatria_control: "",
+    apellidoEstudiante_odontopediatria_control: "",
+    matriculaEstudiante_ortodoncia_aparato: "",
+    nombreEstudiante_ortodoncia_aparato: "",
+    apellidoEstudiante_ortodoncia_aparato: "",
+    matriculaEstudiante_ortodoncia_control: "",
+    nombreEstudiante_ortodoncia_control: "",
+    apellidoEstudiante_ortodoncia_control: "",
     procedimientos: {
       cirugia: {
         diente_sin_restauracion: "",
@@ -142,15 +185,17 @@ function Cuestionario() {
   return (
     <>
       <section className="Cuestionario">
-        <div className="LogOut">
-          <button
-            className="buttonDashboardCuestionario"
-            onClick={handleClickDashboard}
-          >
-            {" "}
-            Dashboard
-          </button>
-          <Authenticate></Authenticate>
+        <div className="Encabezado">
+          <img src={unibe} alt="UNIBE Logo" className="logo" />
+          <div className="EncabezadoDerecha">
+            <button
+              className="buttonDashboardCuestionario"
+              onClick={handleClickDashboard}
+            >
+              Dashboard
+            </button>
+            <Authenticate />
+          </div>
         </div>
         <div className="Formulario">
           <h1 style={{ color: "#047D95", marginTop: "50px" }}>

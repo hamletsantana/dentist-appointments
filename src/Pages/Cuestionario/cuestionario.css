@@ -9,7 +9,7 @@ margin-top: 50px;
 }
 .Cuestionario{
     background-color: #ebebeb;
-    height: 530vh;
+    height: 600vh;
     
 }
 
@@ -108,4 +108,31 @@ Form{
     color: red;
     float: right;
     margin-left: 5px;
+  }
+
+  .Encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .logo {
+    width: 300px; /* Adjust the width and height according to your logo */
+    height: auto;
+  }
+  
+  .EncabezadoDerecha {
+    display: flex;
+    align-items: center;
+  }
+
+  .CopyrightUnibe {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 12px;
+    color: black; /* Adjust color as needed */
   }
