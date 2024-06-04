@@ -259,7 +259,7 @@ function Cuestionario() {
                   {...register("nombrePaciente", {
                     required: "Nombre es obligatiorio",
                     pattern: {
-                      value: /^[A-Za-z]+$/,
+                      value: /^[A-Za-z\s]+$/,
                       message: "El nombre no puede contener números",
                     },
                     maxLength: {
