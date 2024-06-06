@@ -240,9 +240,9 @@ function Cuestionario() {
                       message: "El código debe tener 10 caracteres",
                     },
                     pattern: {
-                      value: /^[0-9]{4}-[0-9]{4}$/,
+                      value: /^[0-9]{4}-[0-9]{5}$/,
                       message:
-                        "El código debe contener 4 números, un guión, y luego 4 números, sin espacios.",
+                        "El código debe contener 4 números, un guión, y luego 5 números, sin espacios.",
                     },
                   })}
                 ></Form.Control>
@@ -448,9 +448,7 @@ function Cuestionario() {
             <Row className="justify-content-md-center">
               <h2>Endodoncia</h2>
               <Col lg="9">
-                <Form.Label class="required-field">
-                  ¿Qué diente/dientes?
-                </Form.Label>
+                <Form.Label>¿Qué diente/dientes?</Form.Label>
               </Col>
               <SeleccionDientes setValue={setValue} control={control} />
             </Row>

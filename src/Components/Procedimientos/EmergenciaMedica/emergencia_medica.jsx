@@ -8,18 +8,23 @@ import "./emergencia_medica.css";
 
 function EmergenciaMedica({ control, register, setValue }) {
   const predeterminedOptions = [
-    "Hipertención",
-    "dennis",
-    "brian",
-    "lia",
-    "laura",
-    "jerry",
-    "mary",
-    "zoe",
-    "nicole",
-    "robert",
-    "leo",
-    "tommy",
+    "Diabetes",
+    "Hipertensión (presión alta)",
+    "Hipotensión (presión baja)",
+    "Problemas del corazón (infartos, marcapasos, stents, taquicardia, arritmia cardiaca, ect.)",
+    "Endocarditis bacteriana o fiebre reumática",
+    "Anemia",
+    "Asma o (pecho apretado)",
+    "Tuberculosis",
+    "Problema de los nervios o temblores",
+    "Epilepsia",
+    "Problemas tiroideos (hipertirodismo, hipotirodismo, nódulos, ect.)",
+    "Problemas renales",
+    "Problemas urinarios o de la vejiga",
+    "Osteoporosis",
+    "Cáncer",
+    "Hepatitis",
+    "Enfermedades de transmisión sexual (VIH/SIDA, Sífilis, Gonorrea, VHS, ect.)",
   ];
 
   const [emergenciaMedicaSelected, setEmergenciaMedicaSelected] = useState([]);
@@ -103,7 +108,7 @@ function EmergenciaMedica({ control, register, setValue }) {
         ))}
       </div>
       <Row className="justify-content-md-center">
-        <Col lg="4">
+        <Col lg="6s">
           <Form.Control
             placeholder="Otra..."
             value={otraOption}

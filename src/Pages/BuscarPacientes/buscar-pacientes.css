@@ -4,8 +4,8 @@ body, html {
 }
 
 .Pacientes {
-  margin-left: 100px;
-  margin-right: 100px;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 
 .contenedorPacientes {
@@ -23,6 +23,16 @@ body, html {
   padding-top: 10px;
   margin-top: 10px; 
   padding-bottom: 10px;/* Some margin at the top */
+}
+
+.atributoAlertaMedicaBuscaPacientes {
+  margin: 0 0 10px 0; /* Margin for attribute containers */
+  font-size: 14px; /* Font size for attributes */
+  color: #333; /* Dark grey text */
+  
+   /* Ensures any long word breaks to the next line */
+  white-space: normal;
+  max-width:90%;
 }
 .informacionAdicional1 {
   background-color: #f9f9f9; /* Light grey background */

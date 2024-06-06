@@ -227,22 +227,21 @@ function BuscarPacientes() {
                             <td colSpan="8">
                               <div className="informacionAdicional1">
                                 <div className="above-group">
-                                  <div className="group-containers">
-                                    <div className="attribute">
-                                      <strong>Fecha:</strong>{" "}
-                                      {item.fecha.S && formatDate(item.fecha.S)}
-                                    </div>
-                                    <div className="attribute">
-                                      <strong>Código:</strong> {item.cedula.S}
-                                    </div>
-
-                                    <div className="attribute">
-                                      <strong>Alertas Médicas:</strong>{" "}
-                                      {item.emergenciaMedica.S &&
-                                        JSON.parse(
-                                          item.emergenciaMedica.S
-                                        ).join(", ")}
-                                    </div>
+                                  <div className="attribute">
+                                    <strong>Fecha:</strong>{" "}
+                                    {item.fecha.S && formatDate(item.fecha.S)}
+                                  </div>
+                                  <br></br>
+                                  <div className="attribute">
+                                    <strong>Código:</strong> {item.cedula.S}
+                                  </div>
+                                  <br></br>
+                                  <div className="atributoAlertaMedicaBuscaPacientes">
+                                    <strong>Alertas Médicas:</strong>{" "}
+                                    {item.emergenciaMedica.S &&
+                                      JSON.parse(item.emergenciaMedica.S).join(
+                                        ", "
+                                      )}
                                   </div>
                                   <br></br>
                                   <div className="attribute">
@@ -285,8 +284,8 @@ function BuscarPacientes() {
                                     </div>
                                     <div className="atributo">
                                       - Matrícula:{" "}
-                                      {item.matriculaEstudiante_cirugia.S ||
-                                        "N/A"}
+                                      {item.matriculaEstudiante_restauraciones
+                                        .S || "N/A"}
                                     </div>
                                   </div>
                                   <div className="group">
