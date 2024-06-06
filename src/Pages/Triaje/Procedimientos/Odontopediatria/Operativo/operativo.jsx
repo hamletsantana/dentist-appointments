@@ -4,12 +4,15 @@ import { Form, Row, Col, Button } from "react-bootstrap";
 import "./operativo.css"; // Import CSS for endodonciaMolarPage'
 import postApiLinkGet from "../../../../../API/api-get-request";
 import unibe from "../../../../../Images/logo_unibe.png";
+import { useNavigate } from "react-router-dom";
 
 const Operativo = () => {
+  const navigate = useNavigate();
   const [odontopediatriaOperativoData, setodontopediatriaOperativoData] =
     useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedItemIndex, setSelectedItemIndex] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
   const [showFormIndex, setShowFormIndex] = useState(null);
   const [formData, setFormData] = useState({
     fecha: "", // Add this field
@@ -46,14 +49,6 @@ const Operativo = () => {
 
   const toggleForm = (index) => {
     const item = odontopediatriaOperativoData[index];
-    if (
-      item.matriculaEstudiante_odontopediatria_operatorio.S ||
-      item.nombreEstudiante_odontopediatria_operatorio.S ||
-      item.apellidoEstudiante_odontopediatria_operatorio.S
-    ) {
-      alert("Un estudiante ya tiene a este paciente asignado");
-      return;
-    }
 
     // Close the "Detalles" dropdown if it's open
     if (selectedItemIndex === index) {
@@ -104,13 +99,15 @@ const Operativo = () => {
     }
 
     // Validation for matriculaEstudiante (only numbers and dashes)
-    const matriculaRegex = /^[0-9-]*$/;
+    const matriculaRegex = /^[0-9]{2}-[0-9]{4}$/;
     if (
       !matriculaRegex.test(
         formData.matriculaEstudiante_odontopediatria_operatorio
       )
     ) {
-      alert("La matrícula debe contener solo números y guiones.");
+      alert(
+        "La matrícula debe contener 2 números, un guión, y luego 4 números, sin espacios."
+      );
       return;
     }
 
@@ -141,10 +138,24 @@ const Operativo = () => {
       .then((data) => {
         console.log("Updated data:", data);
         // Optionally update the local state or refetch data if necessary
-        window.location.reload();
+        //window.location.reload();
+        navigate("/triaje");
+        alert(
+          `El estudiante fue exitosamente asignado al paciente en Odontopediatría Operatorio`
+        );
       })
       .catch((error) => console.error("Error updating data:", error));
   };
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  }
 
   if (loading) {
     return <div>Loading...</div>;
@@ -153,8 +164,15 @@ const Operativo = () => {
   return (
     <>
       <NavBar></NavBar>
-      <div className="PacientesodontopediatriaOperativo">
+      <div className="PacientesProcedimientos">
         <h1>Pacientes en Odontopediatría Operativo</h1>
+        <input
+          type="text"
+          placeholder="Buscar..."
+          value={searchQuery}
+          onChange={handleSearchChange}
+          className="search-bar"
+        />
         <table>
           <thead>
             <tr>
@@ -164,183 +182,236 @@ const Operativo = () => {
               <th>Fecha de Nacimiento</th>
               <th>Dirección</th>
               <th>Teléfono</th>
-              <th>Emergencia Médica</th>
+              <th>Alertas Médicas</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            {odontopediatriaOperativoData.map((item, index) => (
-              <React.Fragment key={index}>
-                <tr>
-                  <td>{item.cedula.S}</td>
-                  <td>{item.nombrePaciente.S}</td>
-                  <td>{item.apellidoPaciente.S}</td>
-                  <td>{item.edadPaciente.S}</td>
-                  <td>{item.direccionPaciente.S}</td>
-                  <td>{item.telefonoPaciente.S}</td>
-                  <td>{item.emergenciaMedica.S}</td>
-                  <td>
-                    <button
-                      className="detallesPacientes"
-                      onClick={() => toggleItem(index)}
+            {odontopediatriaOperativoData.map((item, index) => {
+              const codigoMatch = item.cedula.S.toLowerCase().startsWith(
+                searchQuery.toLowerCase()
+              );
+              const nombreMatch =
+                item.nombrePaciente.S.toLowerCase().startsWith(
+                  searchQuery.toLowerCase()
+                );
+              const apellidoMatch =
+                item.apellidoPaciente.S.toLowerCase().startsWith(
+                  searchQuery.toLowerCase()
+                );
+
+              if (!searchQuery || codigoMatch || nombreMatch || apellidoMatch) {
+                return (
+                  <React.Fragment key={index}>
+                    <tr
+                      className={
+                        selectedItemIndex === index ? "selectedItem" : ""
+                      }
                     >
-                      Detalles
-                    </button>
-                    {item.matriculaEstudiante_odontopediatria_operatorio.S ||
-                    item.nombreEstudiante_odontopediatria_operatorio.S ||
-                    item.apellidoEstudiante_odontopediatria_operatorio.S ? (
-                      <button
-                        className="asignadoPacientes"
-                        onClick={() =>
-                          alert(
-                            "Un estudiante ya ha sido asignado a este paciente"
-                          )
-                        }
-                      >
-                        Asignado
-                      </button>
-                    ) : (
-                      <button
-                        className="asignarPacientes"
-                        onClick={() => toggleForm(index)}
-                      >
-                        Asignar
-                      </button>
-                    )}
-                  </td>
-                </tr>
-                {selectedItemIndex === index && (
-                  <tr>
-                    <td colSpan="8">
-                      <div className="additional-info">
-                        <div className="attribute">
-                          <strong>Código:</strong> {item.cedula.S}
-                        </div>
-                        <div className="attribute">
-                          <strong>Nombre:</strong> {item.nombrePaciente.S}
-                        </div>
-                        <div className="attribute">
-                          <strong>Apellido:</strong> {item.apellidoPaciente.S}
-                        </div>
-                        <div className="attribute">
-                          <strong>Fecha de Nacimiento:</strong>{" "}
-                          {item.edadPaciente.S}
-                        </div>
-                        <div className="attribute">
-                          <strong>Dirección:</strong> {item.direccionPaciente.S}
-                        </div>
-                        <div className="attribute">
-                          <strong>Teléfono:</strong> {item.telefonoPaciente.S}
-                        </div>
-                        <div className="attribute">
-                          <strong>Emergencia Médica:</strong>{" "}
-                          {item.emergenciaMedica.S}
-                        </div>
-                        <div className="attribute">
-                          <strong>Matrícula del Estudiante:</strong>{" "}
-                          {item.matriculaEstudiante_odontopediatria_operatorio
-                            .S || "N/A"}
-                        </div>
-                        <div className="attribute">
-                          <strong>Nombre del Estudiante:</strong>{" "}
-                          {item.nombreEstudiante_odontopediatria_operatorio.S ||
-                            "N/A"}
-                        </div>
-                        <div className="attribute">
-                          <strong>Apellido del Estudiante:</strong>{" "}
-                          {item.apellidoEstudiante_odontopediatria_operatorio
-                            .S || "N/A"}
-                        </div>
-                        <div className="attribute">
-                          <strong>
-                            ¿Paciente menor de 12 años presenta caries dental en
-                            algún órgano dentario?
-                          </strong>{" "}
-                          {
-                            item.procedimientos?.M?.odontopediatria?.M
-                              ?.menor_presenta_caries?.S
-                          }
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                )}
-                {showFormIndex === index && (
-                  <tr>
-                    <td colSpan="8">
-                      <div className="form-container">
-                        <Form
-                          onSubmit={handleSubmit}
-                          style={{
-                            backgroundColor: "#f8f9fa",
-                            padding: "10px",
-                            marginTop: "5px",
-                          }}
+                      <td>{item.cedula.S}</td>
+                      <td>{item.nombrePaciente.S}</td>
+                      <td>{item.apellidoPaciente.S}</td>
+                      <td>
+                        {item.edadPaciente.S && formatDate(item.edadPaciente.S)}
+                      </td>
+
+                      <td>{item.direccionPaciente.S}</td>
+                      <td>
+                        {item.telefonoPaciente.S.replace(
+                          /(\d{3})(\d{3})(\d{4})/,
+                          "$1-$2-$3"
+                        )}
+                      </td>
+                      <td>
+                        {item.emergenciaMedica.S &&
+                          JSON.parse(item.emergenciaMedica.S).join(", ")}
+                      </td>
+                      <td>
+                        <button
+                          className="detallesPacientes"
+                          onClick={() => toggleItem(index)}
                         >
-                          <Row className="form-row">
-                            <Col lg="5">
-                              <Form.Group controlId="formMatriculaEstudiante">
-                                <Form.Label>
-                                  Matrícula del Estudiante
-                                </Form.Label>
-                                <Form.Control
-                                  type="text"
-                                  placeholder="Matrícula del Estudiante"
-                                  value={
-                                    formData.matriculaEstudiante_odontopediatria_operatorio
-                                  }
-                                  name="matriculaEstudiante_odontopediatria_operatorio"
-                                  onChange={handleChange}
-                                />
-                              </Form.Group>
-                            </Col>
-                          </Row>
-                          <Row className="form-row">
-                            <Col lg="5">
-                              <Form.Group controlId="formNombreEstudiante">
-                                <Form.Label>Nombre del Estudiante</Form.Label>
-                                <Form.Control
-                                  type="text"
-                                  placeholder="Nombre del Estudiante"
-                                  value={
-                                    formData.nombreEstudiante_odontopediatria_operatorio
-                                  }
-                                  name="nombreEstudiante_odontopediatria_operatorio"
-                                  onChange={handleChange}
-                                />
-                              </Form.Group>
-                            </Col>
-                          </Row>
-                          <Row className="form-row">
-                            <Col lg="5">
-                              <Form.Group controlId="formApellidoEstudiante">
-                                <Form.Label>Apellido del Estudiante</Form.Label>
-                                <Form.Control
-                                  type="text"
-                                  placeholder="Apellido del Estudiante"
-                                  value={
-                                    formData.apellidoEstudiante_odontopediatria_operatorio
-                                  }
-                                  name="apellidoEstudiante_odontopediatria_operatorio"
-                                  onChange={handleChange}
-                                />
-                              </Form.Group>
-                            </Col>
-                          </Row>
-                          <Button
-                            variant="primary"
-                            type="submit"
-                            className="asignarEstudiante"
+                          Detalles
+                        </button>
+                        {item.matriculaEstudiante_odontopediatria_operatorio
+                          .S ||
+                        item.nombreEstudiante_odontopediatria_operatorio.S ||
+                        item.apellidoEstudiante_odontopediatria_operatorio.S ? (
+                          <button
+                            className="asignadoPacientes"
+                            onClick={() =>
+                              alert(
+                                `El estudiante ${item.nombreEstudiante_odontopediatria_operatorio.S} ${item.apellidoEstudiante_odontopediatria_operatorio.S} de matrícula ${item.matriculaEstudiante_odontopediatria_operatorio.S} ya fue asignado a este paciente previamente`
+                              )
+                            }
                           >
-                            Asignar Estudiante
-                          </Button>
-                        </Form>
-                      </div>
-                    </td>
-                  </tr>
-                )}
-              </React.Fragment>
-            ))}
+                            Asignado
+                          </button>
+                        ) : (
+                          <button
+                            className="asignarPacientes"
+                            onClick={() => toggleForm(index)}
+                          >
+                            Asignar
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                    {selectedItemIndex === index && (
+                      <tr>
+                        <td colSpan="8">
+                          <div className="additional-info">
+                            <div className="attribute">
+                              <strong>Fecha:</strong>{" "}
+                              {item.fecha.S && formatDate(item.fecha.S)}
+                            </div>
+                            <div className="attribute">
+                              <strong>Código:</strong> {item.cedula.S}
+                            </div>
+                            <div className="attribute">
+                              <strong>Nombre:</strong> {item.nombrePaciente.S}
+                            </div>
+                            <div className="attribute">
+                              <strong>Apellido:</strong>{" "}
+                              {item.apellidoPaciente.S}
+                            </div>
+                            <div className="attribute">
+                              <strong>Fecha de Nacimiento:</strong>{" "}
+                              {item.edadPaciente.S &&
+                                formatDate(item.edadPaciente.S)}
+                            </div>
+                            <div className="attribute">
+                              <strong>Dirección:</strong>{" "}
+                              {item.direccionPaciente.S}
+                            </div>
+                            <div className="attribute">
+                              <strong>Teléfono:</strong>{" "}
+                              {item.telefonoPaciente.S.replace(
+                                /(\d{3})(\d{3})(\d{4})/,
+                                "$1-$2-$3"
+                              )}
+                            </div>
+                            <div className="attribute">
+                              <strong>Alertas Médicas:</strong>{" "}
+                              {item.emergenciaMedica.S
+                                ? JSON.parse(item.emergenciaMedica.S).join(", ")
+                                : "N/A"}
+                            </div>
+                            <div className="attribute">
+                              <strong>Estudiante Asignado al Paciente</strong>{" "}
+                            </div>
+                            <div className="attribute">
+                              <strong>- Matrícula:</strong>{" "}
+                              {item
+                                .matriculaEstudiante_odontopediatria_operatorio
+                                .S || "N/A"}
+                            </div>
+                            <div className="attribute">
+                              <strong>- Nombre:</strong>{" "}
+                              {item.nombreEstudiante_odontopediatria_operatorio
+                                .S || "N/A"}{" "}
+                              {
+                                item
+                                  .apellidoEstudiante_odontopediatria_operatorio
+                                  .S
+                              }
+                            </div>
+                            <div className="attribute">
+                              <strong>
+                                ¿Paciente menor de 12 años presenta caries
+                                dental en algún órgano dentario?
+                              </strong>{" "}
+                              {
+                                item.procedimientos?.M?.odontopediatria?.M
+                                  ?.menor_presenta_caries?.S
+                              }
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    )}
+                    {showFormIndex === index && (
+                      <tr>
+                        <td colSpan="8">
+                          <div className="form-container">
+                            <Form
+                              onSubmit={handleSubmit}
+                              style={{
+                                backgroundColor: "#f8f9fa",
+                                padding: "10px",
+                                marginTop: "5px",
+                              }}
+                            >
+                              <Row className="form-row">
+                                <Col lg="5">
+                                  <Form.Group controlId="formMatriculaEstudiante">
+                                    <Form.Label>
+                                      Matrícula del Estudiante
+                                    </Form.Label>
+                                    <Form.Control
+                                      type="text"
+                                      placeholder="Matrícula del Estudiante"
+                                      value={
+                                        formData.matriculaEstudiante_odontopediatria_operatorio
+                                      }
+                                      name="matriculaEstudiante_odontopediatria_operatorio"
+                                      onChange={handleChange}
+                                    />
+                                  </Form.Group>
+                                </Col>
+                              </Row>
+                              <Row className="form-row">
+                                <Col lg="5">
+                                  <Form.Group controlId="formNombreEstudiante">
+                                    <Form.Label>
+                                      Nombre del Estudiante
+                                    </Form.Label>
+                                    <Form.Control
+                                      type="text"
+                                      placeholder="Nombre del Estudiante"
+                                      value={
+                                        formData.nombreEstudiante_odontopediatria_operatorio
+                                      }
+                                      name="nombreEstudiante_odontopediatria_operatorio"
+                                      onChange={handleChange}
+                                    />
+                                  </Form.Group>
+                                </Col>
+                              </Row>
+                              <Row className="form-row">
+                                <Col lg="5">
+                                  <Form.Group controlId="formApellidoEstudiante">
+                                    <Form.Label>
+                                      Apellido del Estudiante
+                                    </Form.Label>
+                                    <Form.Control
+                                      type="text"
+                                      placeholder="Apellido del Estudiante"
+                                      value={
+                                        formData.apellidoEstudiante_odontopediatria_operatorio
+                                      }
+                                      name="apellidoEstudiante_odontopediatria_operatorio"
+                                      onChange={handleChange}
+                                    />
+                                  </Form.Group>
+                                </Col>
+                              </Row>
+                              <Button
+                                variant="primary"
+                                type="submit"
+                                className="asignarEstudiante"
+                              >
+                                Asignar Estudiante
+                              </Button>
+                            </Form>
+                          </div>
+                        </td>
+                      </tr>
+                    )}
+                  </React.Fragment>
+                );
+              }
+            })}
           </tbody>
         </table>
       </div>

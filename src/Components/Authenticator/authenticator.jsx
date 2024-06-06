@@ -43,7 +43,7 @@ function Authenticate() {
   Hub.listen("auth", ({ payload }) => {
     switch (payload.event) {
       case "signedIn":
-        navigate("/dashboard");
+        navigate("/home");
         break;
       case "signedOut":
         navigate("/");

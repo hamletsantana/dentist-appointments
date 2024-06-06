@@ -4,11 +4,14 @@ import { Form, Row, Col, Button } from "react-bootstrap";
 import "./fija.css"; // Import CSS for endodonciaMolarPage'
 import postApiLinkGet from "../../../../../API/api-get-request";
 import unibe from "../../../../../Images/logo_unibe.png";
+import { useNavigate } from "react-router-dom";
 
 const ProtesisFija = () => {
+  const navigate = useNavigate();
   const [ProtesisFijaDataData, setProtesisFijaDataData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedItemIndex, setSelectedItemIndex] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
   const [showFormIndex, setShowFormIndex] = useState(null);
   const [formData, setFormData] = useState({
     fecha: "", // Add this field
@@ -45,14 +48,6 @@ const ProtesisFija = () => {
 
   const toggleForm = (index) => {
     const item = ProtesisFijaDataData[index];
-    if (
-      item.matriculaEstudiante_protesis_fija.S ||
-      item.nombreEstudiante_protesis_fija.S ||
-      item.apellidoEstudiante_protesis_fija.S
-    ) {
-      alert("Un estudiante ya tiene a este paciente asignado");
-      return;
-    }
 
     // Close the "Detalles" dropdown if it's open
     if (selectedItemIndex === index) {
@@ -103,9 +98,11 @@ const ProtesisFija = () => {
     }
 
     // Validation for matriculaEstudiante (only numbers and dashes)
-    const matriculaRegex = /^[0-9-]*$/;
+    const matriculaRegex = /^[0-9]{2}-[0-9]{4}$/;
     if (!matriculaRegex.test(formData.matriculaEstudiante_protesis_fija)) {
-      alert("La matrícula debe contener solo números y guiones.");
+      alert(
+        "La matrícula debe contener 2 números, un guión, y luego 4 números, sin espacios."
+      );
       return;
     }
 
@@ -136,10 +133,25 @@ const ProtesisFija = () => {
       .then((data) => {
         console.log("Updated data:", data);
         // Optionally update the local state or refetch data if necessary
-        window.location.reload();
+        //window.location.reload();
+        navigate("/triaje");
+        alert(
+          `El estudiante fue exitosamente asignado al paciente en Prótesis Fija`
+        );
       })
       .catch((error) => console.error("Error updating data:", error));
   };
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  }
 
   if (loading) {
     return <div>Loading...</div>;
@@ -148,8 +160,15 @@ const ProtesisFija = () => {
   return (
     <>
       <NavBar></NavBar>
-      <div className="PacientesProtesisFijaData">
+      <div className="PacientesProcedimientos">
         <h1>Pacientes en Prótesis Fija</h1>
+        <input
+          type="text"
+          placeholder="Buscar..."
+          value={searchQuery}
+          onChange={handleSearchChange}
+          className="search-bar"
+        />
         <table>
           <thead>
             <tr>
@@ -159,198 +178,248 @@ const ProtesisFija = () => {
               <th>Fecha de Nacimiento</th>
               <th>Dirección</th>
               <th>Teléfono</th>
-              <th>Emergencia Médica</th>
+              <th>Alertas Médicas</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            {ProtesisFijaDataData.map((item, index) => (
-              <React.Fragment key={index}>
-                <tr>
-                  <td>{item.cedula.S}</td>
-                  <td>{item.nombrePaciente.S}</td>
-                  <td>{item.apellidoPaciente.S}</td>
-                  <td>{item.edadPaciente.S}</td>
-                  <td>{item.direccionPaciente.S}</td>
-                  <td>{item.telefonoPaciente.S}</td>
-                  <td>{item.emergenciaMedica.S}</td>
-                  <td>
-                    <button
-                      className="detallesPacientes"
-                      onClick={() => toggleItem(index)}
-                    >
-                      Detalles
-                    </button>
-                    {item.matriculaEstudiante_protesis_fija.S ||
-                    item.nombreEstudiante_protesis_fija.S ||
-                    item.apellidoEstudiante_protesis_fija.S ? (
-                      <button
-                        className="asignadoPacientes"
-                        onClick={() =>
-                          alert(
-                            "Un estudiante ya ha sido asignado a este paciente"
-                          )
-                        }
-                      >
-                        Asignado
-                      </button>
-                    ) : (
-                      <button
-                        className="asignarPacientes"
-                        onClick={() => toggleForm(index)}
-                      >
-                        Asignar
-                      </button>
-                    )}
-                  </td>
-                </tr>
-                {selectedItemIndex === index && (
-                  <tr>
-                    <td colSpan="8">
-                      <div className="additional-info">
-                        <div className="attribute">
-                          <strong>Código:</strong> {item.cedula.S}
-                        </div>
-                        <div className="attribute">
-                          <strong>Nombre:</strong> {item.nombrePaciente.S}
-                        </div>
-                        <div className="attribute">
-                          <strong>Apellido:</strong> {item.apellidoPaciente.S}
-                        </div>
-                        <div className="attribute">
-                          <strong>Fecha de Nacimiento:</strong>{" "}
-                          {item.edadPaciente.S}
-                        </div>
-                        <div className="attribute">
-                          <strong>Dirección:</strong> {item.direccionPaciente.S}
-                        </div>
-                        <div className="attribute">
-                          <strong>Teléfono:</strong> {item.telefonoPaciente.S}
-                        </div>
-                        <div className="attribute">
-                          <strong>Emergencia Médica:</strong>{" "}
-                          {item.emergenciaMedica.S}
-                        </div>
-                        <div className="attribute">
-                          <strong>Matrícula del Estudiante:</strong>{" "}
-                          {item.matriculaEstudiante_protesis_fija.S || "N/A"}
-                        </div>
-                        <div className="attribute">
-                          <strong>Nombre del Estudiante:</strong>{" "}
-                          {item.nombreEstudiante_protesis_fija.S || "N/A"}
-                        </div>
-                        <div className="attribute">
-                          <strong>Apellido del Estudiante:</strong>{" "}
-                          {item.apellidoEstudiante_protesis_fija.S || "N/A"}
-                        </div>
-                        <div className="attribute">
-                          <strong>
-                            ¿El paciente presenta áreas de pérdida de dientes?
-                            <br></br>
-                            <br></br>
-                            Unilateral:
-                          </strong>{" "}
-                          {
-                            item.procedimientos?.M?.protesis?.M
-                              ?.areas_perdida_dientes_unilateral?.S
-                          }
-                          <br></br>
-                          <strong>Bilateral: </strong>
-                          {
-                            item.procedimientos?.M?.protesis?.M
-                              ?.areas_perdida_dientes_bilateral?.S
-                          }
-                        </div>
+            {ProtesisFijaDataData.map((item, index) => {
+              const codigoMatch = item.cedula.S.toLowerCase().startsWith(
+                searchQuery.toLowerCase()
+              );
+              const nombreMatch =
+                item.nombrePaciente.S.toLowerCase().startsWith(
+                  searchQuery.toLowerCase()
+                );
+              const apellidoMatch =
+                item.apellidoPaciente.S.toLowerCase().startsWith(
+                  searchQuery.toLowerCase()
+                );
 
-                        <div className="attribute">
-                          <strong>
-                            ¿Es necesario realizarse una prótesis fija?
-                          </strong>{" "}
-                          {
-                            item.procedimientos?.M?.protesis?.M?.protesis_fija
-                              ?.S
-                          }
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                )}
-                {showFormIndex === index && (
-                  <tr>
-                    <td colSpan="8">
-                      <div className="form-container">
-                        <Form
-                          onSubmit={handleSubmit}
-                          style={{
-                            backgroundColor: "#f8f9fa",
-                            padding: "10px",
-                            marginTop: "5px",
-                          }}
+              if (!searchQuery || codigoMatch || nombreMatch || apellidoMatch) {
+                return (
+                  <React.Fragment key={index}>
+                    <tr
+                      className={
+                        selectedItemIndex === index ? "selectedItem" : ""
+                      }
+                    >
+                      <td>{item.cedula.S}</td>
+                      <td>{item.nombrePaciente.S}</td>
+                      <td>{item.apellidoPaciente.S}</td>
+                      <td>
+                        {item.edadPaciente.S && formatDate(item.edadPaciente.S)}
+                      </td>
+
+                      <td>{item.direccionPaciente.S}</td>
+                      <td>
+                        {item.telefonoPaciente.S.replace(
+                          /(\d{3})(\d{3})(\d{4})/,
+                          "$1-$2-$3"
+                        )}
+                      </td>
+                      <td>
+                        {item.emergenciaMedica.S &&
+                          JSON.parse(item.emergenciaMedica.S).join(", ")}
+                      </td>
+                      <td>
+                        <button
+                          className="detallesPacientes"
+                          onClick={() => toggleItem(index)}
                         >
-                          <Row className="form-row">
-                            <Col lg="5">
-                              <Form.Group controlId="formMatriculaEstudiante">
-                                <Form.Label>
-                                  Matrícula del Estudiante
-                                </Form.Label>
-                                <Form.Control
-                                  type="text"
-                                  placeholder="Matrícula del Estudiante"
-                                  value={
-                                    formData.matriculaEstudiante_protesis_fija
-                                  }
-                                  name="matriculaEstudiante_protesis_fija"
-                                  onChange={handleChange}
-                                />
-                              </Form.Group>
-                            </Col>
-                          </Row>
-                          <Row className="form-row">
-                            <Col lg="5">
-                              <Form.Group controlId="formNombreEstudiante">
-                                <Form.Label>Nombre del Estudiante</Form.Label>
-                                <Form.Control
-                                  type="text"
-                                  placeholder="Nombre del Estudiante"
-                                  value={
-                                    formData.nombreEstudiante_protesis_fija
-                                  }
-                                  name="nombreEstudiante_protesis_fija"
-                                  onChange={handleChange}
-                                />
-                              </Form.Group>
-                            </Col>
-                          </Row>
-                          <Row className="form-row">
-                            <Col lg="5">
-                              <Form.Group controlId="formApellidoEstudiante">
-                                <Form.Label>Apellido del Estudiante</Form.Label>
-                                <Form.Control
-                                  type="text"
-                                  placeholder="Apellido del Estudiante"
-                                  value={
-                                    formData.apellidoEstudiante_protesis_fija
-                                  }
-                                  name="apellidoEstudiante_protesis_fija"
-                                  onChange={handleChange}
-                                />
-                              </Form.Group>
-                            </Col>
-                          </Row>
-                          <Button
-                            variant="primary"
-                            type="submit"
-                            className="asignarEstudiante"
+                          Detalles
+                        </button>
+                        {item.matriculaEstudiante_protesis_fija.S ||
+                        item.nombreEstudiante_protesis_fija.S ||
+                        item.apellidoEstudiante_protesis_fija.S ? (
+                          <button
+                            className="asignadoPacientes"
+                            onClick={() =>
+                              alert(
+                                `El estudiante ${item.nombreEstudiante_protesis_fija.S} ${item.apellidoEstudiante_protesis_fija.S} de matrícula ${item.matriculaEstudiante_protesis_fija.S} ya fue asignado a este paciente previamente`
+                              )
+                            }
                           >
-                            Asignar Estudiante
-                          </Button>
-                        </Form>
-                      </div>
-                    </td>
-                  </tr>
-                )}
-              </React.Fragment>
-            ))}
+                            Asignado
+                          </button>
+                        ) : (
+                          <button
+                            className="asignarPacientes"
+                            onClick={() => toggleForm(index)}
+                          >
+                            Asignar
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                    {selectedItemIndex === index && (
+                      <tr>
+                        <td colSpan="8">
+                          <div className="additional-info">
+                            <div className="attribute">
+                              <strong>Fecha:</strong>{" "}
+                              {item.fecha.S && formatDate(item.fecha.S)}
+                            </div>
+                            <div className="attribute">
+                              <strong>Código:</strong> {item.cedula.S}
+                            </div>
+                            <div className="attribute">
+                              <strong>Nombre:</strong> {item.nombrePaciente.S}
+                            </div>
+                            <div className="attribute">
+                              <strong>Apellido:</strong>{" "}
+                              {item.apellidoPaciente.S}
+                            </div>
+                            <div className="attribute">
+                              <strong>Fecha de Nacimiento:</strong>{" "}
+                              {item.edadPaciente.S &&
+                                formatDate(item.edadPaciente.S)}
+                            </div>
+                            <div className="attribute">
+                              <strong>Dirección:</strong>{" "}
+                              {item.direccionPaciente.S}
+                            </div>
+                            <div className="attribute">
+                              <strong>Teléfono:</strong>{" "}
+                              {item.telefonoPaciente.S.replace(
+                                /(\d{3})(\d{3})(\d{4})/,
+                                "$1-$2-$3"
+                              )}
+                            </div>
+                            <div className="attribute">
+                              <strong>Alertas Médicas:</strong>{" "}
+                              {item.emergenciaMedica.S
+                                ? JSON.parse(item.emergenciaMedica.S).join(", ")
+                                : "N/A"}
+                            </div>
+                            <div className="attribute">
+                              <strong>Estudiante Asignado al Paciente</strong>{" "}
+                            </div>
+                            <div className="attribute">
+                              <strong>- Matrícula:</strong>{" "}
+                              {item.matriculaEstudiante_protesis_fija.S ||
+                                "N/A"}
+                            </div>
+                            <div className="attribute">
+                              <strong>- Nombre:</strong>{" "}
+                              {item.nombreEstudiante_protesis_fija.S || "N/A"}{" "}
+                              {item.apellidoEstudiante_protesis_fija.S}
+                            </div>
+                            <div className="attribute">
+                              <strong>
+                                ¿El paciente presenta áreas de pérdida de
+                                dientes?
+                                <br></br>
+                                <br></br>
+                                Unilateral:
+                              </strong>{" "}
+                              {
+                                item.procedimientos?.M?.protesis?.M
+                                  ?.areas_perdida_dientes_unilateral?.S
+                              }
+                              <br></br>
+                              <strong>Bilateral: </strong>
+                              {
+                                item.procedimientos?.M?.protesis?.M
+                                  ?.areas_perdida_dientes_bilateral?.S
+                              }
+                            </div>
+
+                            <div className="attribute">
+                              <strong>
+                                ¿Es necesario realizarse una prótesis fija?
+                              </strong>{" "}
+                              {
+                                item.procedimientos?.M?.protesis?.M
+                                  ?.protesis_fija?.S
+                              }
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    )}
+                    {showFormIndex === index && (
+                      <tr>
+                        <td colSpan="8">
+                          <div className="form-container">
+                            <Form
+                              onSubmit={handleSubmit}
+                              style={{
+                                backgroundColor: "#f8f9fa",
+                                padding: "10px",
+                                marginTop: "5px",
+                              }}
+                            >
+                              <Row className="form-row">
+                                <Col lg="5">
+                                  <Form.Group controlId="formMatriculaEstudiante">
+                                    <Form.Label>
+                                      Matrícula del Estudiante
+                                    </Form.Label>
+                                    <Form.Control
+                                      type="text"
+                                      placeholder="Matrícula del Estudiante"
+                                      value={
+                                        formData.matriculaEstudiante_protesis_fija
+                                      }
+                                      name="matriculaEstudiante_protesis_fija"
+                                      onChange={handleChange}
+                                    />
+                                  </Form.Group>
+                                </Col>
+                              </Row>
+                              <Row className="form-row">
+                                <Col lg="5">
+                                  <Form.Group controlId="formNombreEstudiante">
+                                    <Form.Label>
+                                      Nombre del Estudiante
+                                    </Form.Label>
+                                    <Form.Control
+                                      type="text"
+                                      placeholder="Nombre del Estudiante"
+                                      value={
+                                        formData.nombreEstudiante_protesis_fija
+                                      }
+                                      name="nombreEstudiante_protesis_fija"
+                                      onChange={handleChange}
+                                    />
+                                  </Form.Group>
+                                </Col>
+                              </Row>
+                              <Row className="form-row">
+                                <Col lg="5">
+                                  <Form.Group controlId="formApellidoEstudiante">
+                                    <Form.Label>
+                                      Apellido del Estudiante
+                                    </Form.Label>
+                                    <Form.Control
+                                      type="text"
+                                      placeholder="Apellido del Estudiante"
+                                      value={
+                                        formData.apellidoEstudiante_protesis_fija
+                                      }
+                                      name="apellidoEstudiante_protesis_fija"
+                                      onChange={handleChange}
+                                    />
+                                  </Form.Group>
+                                </Col>
+                              </Row>
+                              <Button
+                                variant="primary"
+                                type="submit"
+                                className="asignarEstudiante"
+                              >
+                                Asignar Estudiante
+                              </Button>
+                            </Form>
+                          </div>
+                        </td>
+                      </tr>
+                    )}
+                  </React.Fragment>
+                );
+              }
+            })}
           </tbody>
         </table>
       </div>

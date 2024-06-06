@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./buscar-pacientes.css"; // Import CSS file
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Authenticate from "../../Components/Authenticator/authenticator";
 import unibe from "../../Images/logo_unibe.png";
 
@@ -11,7 +11,7 @@ function BuscarPacientes() {
   const [selectedItemIndex, setSelectedItemIndex] = useState(null);
 
   const handleClickDashboard = () => {
-    navigate("/dashboard");
+    navigate("/home");
   };
 
   const navigate = useNavigate();
@@ -40,6 +40,13 @@ function BuscarPacientes() {
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  }
 
   if (loading) {
     return <div>Loading...</div>;
@@ -49,13 +56,15 @@ function BuscarPacientes() {
     <>
       <section className="BuscarPacientes">
         <div className="Encabezado">
-          <img src={unibe} alt="UNIBE Logo" className="logo" />
+          <Link to="/home">
+            <img src={unibe} alt="UNIBE Logo" className="logo" />
+          </Link>
           <div className="EncabezadoDerecha">
             <button
               className="buttonDashboardCuestionario"
               onClick={handleClickDashboard}
             >
-              Dashboard
+              Home Page
             </button>
             <Authenticate />
           </div>
@@ -79,7 +88,7 @@ function BuscarPacientes() {
                   <th>Fecha de Nacimiento</th>
                   <th>Dirección</th>
                   <th>Teléfono</th>
-                  <th>Emergencia Médica</th>
+                  <th>Alertas Médicas</th>
                   <th></th>
                 </tr>
               </thead>
@@ -113,10 +122,22 @@ function BuscarPacientes() {
                           <td>{item.cedula.S}</td>
                           <td>{item.nombrePaciente.S}</td>
                           <td>{item.apellidoPaciente.S}</td>
-                          <td>{item.edadPaciente.S}</td>
+                          <td>
+                            {item.edadPaciente.S &&
+                              formatDate(item.edadPaciente.S)}
+                          </td>
+
                           <td>{item.direccionPaciente.S}</td>
-                          <td>{item.telefonoPaciente.S}</td>
-                          <td>{item.emergenciaMedica.S}</td>
+                          <td>
+                            {item.telefonoPaciente.S.replace(
+                              /(\d{3})(\d{3})(\d{4})/,
+                              "$1-$2-$3"
+                            )}
+                          </td>
+                          <td>
+                            {item.emergenciaMedica.S &&
+                              JSON.parse(item.emergenciaMedica.S).join(", ")}
+                          </td>
                           <td>
                             <button
                               className="detallesPacientes"
@@ -124,10 +145,78 @@ function BuscarPacientes() {
                             >
                               Detalles
                             </button>
-                            {item.matriculaEstudiante_cirugia?.S &&
-                            item.nombreEstudiante_cirugia?.S &&
-                            item.apellidoEstudiante_cirugia?.S ? (
-                              <button className="asignadoPacientes">
+                            {(item.matriculaEstudiante_cirugia?.S &&
+                              item.nombreEstudiante_cirugia?.S &&
+                              item.apellidoEstudiante_cirugia?.S) ||
+                            (item.matriculaEstudiante_endodoncia_preMolar?.S &&
+                              item.nombreEstudiante_endodoncia_preMolar?.S &&
+                              item.apellidoEstudiante_endodoncia_preMolar?.S) ||
+                            (item.matriculaEstudiante_restauraciones?.S &&
+                              item.nombreEstudiante_restauraciones?.S &&
+                              item.apellidoEstudiante_restauraciones?.S) ||
+                            (item.matriculaEstudiante_endodoncia_molar?.S &&
+                              item.nombreEstudiante_endodoncia_molar?.S &&
+                              item.apellidoEstudiante_endodoncia_molar?.S) ||
+                            (item.matriculaEstudiante_endodoncia_anterior?.S &&
+                              item.nombreEstudiante_endodoncia_anterior?.S &&
+                              item.apellidoEstudiante_endodoncia_anterior) ||
+                            (
+                              item.matriculaEstudiante_periodoncia_periodontal
+                                ?.S &&
+                              item.nombreEstudiante_periodoncia_periodontal
+                                ?.S &&
+                              item.apellidoEstudiante_periodoncia_periodontal?.S
+                            )?.S ||
+                            (item.matriculaEstudiante_periodoncia_mantenimiento
+                              ?.S &&
+                              item.nombreEstudiante_periodoncia_mantenimiento
+                                ?.S &&
+                              item.apellidoEstudiante_periodoncia_mantenimiento
+                                ?.S) ||
+                            (item.matriculaEstudiante_ortodoncia_aparato?.S &&
+                              item.nombreEstudiante_ortodoncia_aparato?.S &&
+                              item.apellidoEstudiante_ortodoncia_aparato?.S) ||
+                            (item.matriculaEstudiante_ortodoncia_control?.S &&
+                              item.nombreEstudiante_ortodoncia_control?.S &&
+                              item.apellidoEstudiante_ortodoncia_control?.S) ||
+                            (item.matriculaEstudiante_protesis_fija?.S &&
+                              item.nombreEstudiante_protesis_fija?.S &&
+                              item.apellidoEstudiante_protesis_fija?.S) ||
+                            (item.matriculaEstudiante_protesis_removible?.S &&
+                              item.nombreEstudiante_protesis_removible?.S &&
+                              item.apellidoEstudiante_protesis_removible?.S) ||
+                            (item.matriculaEstudiante_protesis_total?.S &&
+                              item.nombreEstudiante_protesis_total?.S &&
+                              item.apellidoEstudiante_protesis_total?.S) ||
+                            (item.matriculaEstudiante_odontopediatria_control
+                              ?.S &&
+                              item.nombreEstudiante_odontopediatria_control
+                                ?.S &&
+                              item.apellidoEstudiante_odontopediatria_control
+                                ?.S) ||
+                            (item
+                              .matriculaEstudiante_odontopediatria_no_operatorio
+                              ?.S &&
+                              item
+                                .nombreEstudiante_odontopediatria_no_operatorio
+                                ?.S &&
+                              item
+                                .apellidoEstudiante_odontopediatria_no_operatorio
+                                ?.S) ||
+                            (item.matriculaEstudiante_odontopediatria_operatorio
+                              ?.S &&
+                              item.nombreEstudiante_odontopediatria_operatorio
+                                ?.S &&
+                              item.apellidoEstudiante_odontopediatria_operatorio
+                                ?.S) ? (
+                              <button
+                                className="asignadoPacientes"
+                                onClick={() =>
+                                  alert(
+                                    "Click en el botón 'detalles', localizado a la izquierda, para ver qué estudiantes están asignados a este paciente y en qué procedimientos a realizar se localizan"
+                                  )
+                                }
+                              >
                                 Asignado
                               </button>
                             ) : null}
@@ -136,46 +225,382 @@ function BuscarPacientes() {
                         {selectedItemIndex === index && (
                           <tr>
                             <td colSpan="8">
-                              <div className="informacionAdicional">
-                                <div className="atributo">
-                                  <strong>Código:</strong> {item.cedula.S}
-                                </div>
-                                <div className="atributo">
-                                  <strong>Nombre:</strong>{" "}
-                                  {item.nombrePaciente.S}
-                                </div>
-                                <div className="atributo">
-                                  <strong>Apellido:</strong>{" "}
-                                  {item.apellidoPaciente.S}
-                                </div>
-                                <div className="atributo">
-                                  <strong>Fecha de Nacimiento:</strong>{" "}
-                                  {item.edadPaciente.S}
-                                </div>
-                                <div className="atributo">
-                                  <strong>Dirección:</strong>{" "}
-                                  {item.direccionPaciente.S}
-                                </div>
-                                <div className="atributo">
-                                  <strong>Teléfono:</strong>{" "}
-                                  {item.telefonoPaciente.S}
-                                </div>
-                                <div className="atributo">
-                                  <strong>Emergencia Médica:</strong>{" "}
-                                  {item.emergenciaMedica.S}
+                              <div className="informacionAdicional1">
+                                <div className="above-group">
+                                  <div className="group-containers">
+                                    <div className="attribute">
+                                      <strong>Fecha:</strong>{" "}
+                                      {item.fecha.S && formatDate(item.fecha.S)}
+                                    </div>
+                                    <div className="attribute">
+                                      <strong>Código:</strong> {item.cedula.S}
+                                    </div>
+
+                                    <div className="attribute">
+                                      <strong>Alertas Médicas:</strong>{" "}
+                                      {item.emergenciaMedica.S &&
+                                        JSON.parse(
+                                          item.emergenciaMedica.S
+                                        ).join(", ")}
+                                    </div>
+                                  </div>
+                                  <br></br>
+                                  <div className="attribute">
+                                    <strong>
+                                      Procedimientos a ser Realizados
+                                    </strong>{" "}
+                                  </div>
                                 </div>
 
-                                <div className="atributo">
-                                  <strong>Matrícula del Estudiante:</strong>{" "}
-                                  {item.matriculaEstudiante_cirugia.S || "N/A"}
-                                </div>
-                                <div className="atributo">
-                                  <strong>Nombre del Estudiante:</strong>{" "}
-                                  {item.nombreEstudiante_cirugia.S || "N/A"}
-                                </div>
-                                <div className="atributo">
-                                  <strong>Apellido del Estudiante:</strong>{" "}
-                                  {item.apellidoEstudiante_cirugia.S || "N/A"}
+                                <div className="group-containers">
+                                  <div className="group">
+                                    <div className="atributo">
+                                      <strong>
+                                        Cirugía: {item.cirugia_check.S}
+                                      </strong>
+                                    </div>
+                                    <div className="atributo">
+                                      - Asignado al estudiante:{" "}
+                                      {item.nombreEstudiante_cirugia.S || "N/A"}{" "}
+                                      {item.apellidoEstudiante_cirugia.S}
+                                    </div>
+                                    <div className="atributo">
+                                      - Matrícula:{" "}
+                                      {item.matriculaEstudiante_cirugia.S ||
+                                        "N/A"}
+                                    </div>
+                                  </div>
+                                  <div className="group">
+                                    <div className="atributo">
+                                      <strong>
+                                        Restauraciones:{" "}
+                                        {item.restauracion_check.S}
+                                      </strong>
+                                    </div>
+                                    <div className="atributo">
+                                      - Asignado al estudiante:{" "}
+                                      {item.nombreEstudiante_restauraciones.S ||
+                                        "N/A"}{" "}
+                                      {item.apellidoEstudiante_restauraciones.S}
+                                    </div>
+                                    <div className="atributo">
+                                      - Matrícula:{" "}
+                                      {item.matriculaEstudiante_cirugia.S ||
+                                        "N/A"}
+                                    </div>
+                                  </div>
+                                  <div className="group">
+                                    <div className="atributo">
+                                      <strong>
+                                        Endodoncia Anterior:{" "}
+                                        {item.endodoncia_anterior_check.S}
+                                      </strong>
+                                    </div>
+                                    <div className="atributo">
+                                      - Asignado al estudiante:{" "}
+                                      {item.nombreEstudiante_endodoncia_anterior
+                                        .S || "N/A"}{" "}
+                                      {
+                                        item
+                                          .apellidoEstudiante_endodoncia_anterior
+                                          .S
+                                      }
+                                    </div>
+                                    <div className="atributo">
+                                      - Matrícula:{" "}
+                                      {item
+                                        .matriculaEstudiante_endodoncia_anterior
+                                        .S || "N/A"}
+                                    </div>
+                                  </div>
+                                  <div className="group">
+                                    <div className="atributo">
+                                      <strong>
+                                        Endodoncia Molar:{" "}
+                                        {item.endodoncia_molar_check.S}
+                                      </strong>
+                                    </div>
+                                    <div className="atributo">
+                                      - Asignado al estudiante:{" "}
+                                      {item.nombreEstudiante_endodoncia_molar
+                                        .S || "N/A"}{" "}
+                                      {
+                                        item.apellidoEstudiante_endodoncia_molar
+                                          .S
+                                      }
+                                    </div>
+                                    <div className="atributo">
+                                      - Matrícula:{" "}
+                                      {item.matriculaEstudiante_endodoncia_molar
+                                        .S || "N/A"}
+                                    </div>
+                                  </div>
+                                  <div className="group">
+                                    <div className="atributo">
+                                      <strong>
+                                        Endodoncia Pre-Molar:{" "}
+                                        {item.endodoncia_preMolar_check.S}
+                                      </strong>
+                                    </div>
+                                    <div className="atributo">
+                                      - Asignado al estudiante:{" "}
+                                      {item.nombreEstudiante_endodoncia_preMolar
+                                        .S || "N/A"}{" "}
+                                      {
+                                        item
+                                          .apellidoEstudiante_endodoncia_preMolar
+                                          .S
+                                      }
+                                    </div>
+                                    <div className="atributo">
+                                      - Matrícula:{" "}
+                                      {item
+                                        .matriculaEstudiante_endodoncia_preMolar
+                                        .S || "N/A"}
+                                    </div>
+                                  </div>
+                                  <div className="group">
+                                    <div className="atributo">
+                                      <strong>
+                                        Odontopediatría Operatorio:{" "}
+                                        {
+                                          item.odontopediatria_operatorio_check
+                                            .S
+                                        }
+                                      </strong>
+                                    </div>
+                                    <div className="atributo">
+                                      - Asignado al estudiante:{" "}
+                                      {item
+                                        .nombreEstudiante_odontopediatria_operatorio
+                                        .S || "N/A"}{" "}
+                                      {
+                                        item
+                                          .apellidoEstudiante_odontopediatria_operatorio
+                                          .S
+                                      }
+                                    </div>
+                                    <div className="atributo">
+                                      - Matrícula:{" "}
+                                      {item
+                                        .matriculaEstudiante_odontopediatria_operatorio
+                                        .S || "N/A"}
+                                    </div>
+                                  </div>
+                                  <div className="group">
+                                    <div className="atributo">
+                                      <strong>
+                                        Odontopediatría No Operatorio:{" "}
+                                        {
+                                          item
+                                            .odontopediatria_NoOperatorio_check
+                                            .S
+                                        }
+                                      </strong>
+                                    </div>
+                                    <div className="atributo">
+                                      - Asignado al estudiante:{" "}
+                                      {item
+                                        .nombreEstudiante_odontopediatria_no_operatorio
+                                        .S || "N/A"}{" "}
+                                      {
+                                        item
+                                          .apellidoEstudiante_odontopediatria_no_operatorio
+                                          .S
+                                      }
+                                    </div>
+                                    <div className="atributo">
+                                      - Matrícula:{" "}
+                                      {item
+                                        .matriculaEstudiante_odontopediatria_no_operatorio
+                                        .S || "N/A"}
+                                    </div>
+                                  </div>
+                                  <div className="group">
+                                    <div className="atributo">
+                                      <strong>
+                                        Odontopediatría Control:{" "}
+                                        {item.odontopediatria_control_check.S}
+                                      </strong>
+                                    </div>
+                                    <div className="atributo">
+                                      - Asignado al estudiante:{" "}
+                                      {item
+                                        .nombreEstudiante_odontopediatria_control
+                                        .S || "N/A"}{" "}
+                                      {
+                                        item
+                                          .apellidoEstudiante_odontopediatria_control
+                                          .S
+                                      }
+                                    </div>
+                                    <div className="atributo">
+                                      - Matrícula:{" "}
+                                      {item
+                                        .matriculaEstudiante_odontopediatria_control
+                                        .S || "N/A"}
+                                    </div>
+                                  </div>
+                                  <div className="group">
+                                    <div className="atributo">
+                                      <strong>
+                                        Prótesis Total:{" "}
+                                        {item.protesis_total_check.S}
+                                      </strong>
+                                    </div>
+                                    <div className="atributo">
+                                      - Asignado al estudiante:{" "}
+                                      {item.nombreEstudiante_protesis_total.S ||
+                                        "N/A"}{" "}
+                                      {item.apellidoEstudiante_protesis_total.S}
+                                    </div>
+                                    <div className="atributo">
+                                      - Matrícula:{" "}
+                                      {item.matriculaEstudiante_protesis_total
+                                        .S || "N/A"}
+                                    </div>
+                                  </div>
+                                  <div className="group">
+                                    <div className="atributo">
+                                      <strong>
+                                        Prótesis Removible:{" "}
+                                        {item.protesis_removible_check.S}
+                                      </strong>
+                                    </div>
+                                    <div className="atributo">
+                                      - Asignado al estudiante:{" "}
+                                      {item.nombreEstudiante_protesis_removible
+                                        .S || "N/A"}{" "}
+                                      {
+                                        item
+                                          .apellidoEstudiante_protesis_removible
+                                          .S
+                                      }
+                                    </div>
+                                    <div className="atributo">
+                                      - Matrícula:{" "}
+                                      {item
+                                        .matriculaEstudiante_protesis_removible
+                                        .S || "N/A"}
+                                    </div>
+                                  </div>
+                                  <div className="group">
+                                    <div className="atributo">
+                                      <strong>
+                                        Prótesis Fija:{" "}
+                                        {item.protesis_fija_check.S}
+                                      </strong>
+                                    </div>
+                                    <div className="atributo">
+                                      - Asignado al estudiante:{" "}
+                                      {item.nombreEstudiante_protesis_fija.S ||
+                                        "N/A"}{" "}
+                                      {item.apellidoEstudiante_protesis_fija.S}
+                                    </div>
+                                    <div className="atributo">
+                                      - Matrícula:{" "}
+                                      {item.matriculaEstudiante_protesis_fija
+                                        .S || "N/A"}
+                                    </div>
+                                  </div>
+                                  <div className="group">
+                                    <div className="atributo">
+                                      <strong>
+                                        Ortodoncia Aparato:{" "}
+                                        {item.ortodoncia_aparato_check.S}
+                                      </strong>
+                                    </div>
+                                    <div className="atributo">
+                                      - Asignado al estudiante:{" "}
+                                      {item.nombreEstudiante_ortodoncia_aparato
+                                        .S || "N/A"}{" "}
+                                      {
+                                        item
+                                          .apellidoEstudiante_ortodoncia_aparato
+                                          .S
+                                      }
+                                    </div>
+                                    <div className="atributo">
+                                      - Matrícula:{" "}
+                                      {item
+                                        .matriculaEstudiante_ortodoncia_aparato
+                                        .S || "N/A"}
+                                    </div>
+                                  </div>
+                                  <div className="group">
+                                    <div className="atributo">
+                                      <strong>
+                                        Ortodoncia Control:{" "}
+                                        {item.ortodoncia_control_check.S}
+                                      </strong>
+                                    </div>
+                                    <div className="atributo">
+                                      - Asignado al estudiante:{" "}
+                                      {item.nombreEstudiante_ortodoncia_control
+                                        .S || "N/A"}{" "}
+                                      {
+                                        item
+                                          .apellidoEstudiante_ortodoncia_control
+                                          .S
+                                      }
+                                    </div>
+                                    <div className="atributo">
+                                      - Matrícula:{" "}
+                                      {item
+                                        .matriculaEstudiante_ortodoncia_control
+                                        .S || "N/A"}
+                                    </div>
+                                  </div>
+                                  <div className="group">
+                                    <div className="atributo">
+                                      <strong>
+                                        Periodoncia Periodontal:{" "}
+                                        {item.paciente_periodontal_check.S}
+                                      </strong>
+                                    </div>
+                                    <div className="atributo">
+                                      - Asignado al estudiante:{" "}
+                                      {item
+                                        .nombreEstudiante_periodoncia_periodontal
+                                        .S || "N/A"}{" "}
+                                      {
+                                        item
+                                          .apellidoEstudiante_periodoncia_periodontal
+                                          .S
+                                      }
+                                    </div>
+                                    <div className="atributo">
+                                      - Matrícula:{" "}
+                                      {item
+                                        .matriculaEstudiante_periodoncia_periodontal
+                                        .S || "N/A"}
+                                    </div>
+                                  </div>
+                                  <div className="group">
+                                    <div className="atributo">
+                                      <strong>
+                                        Periodoncia Mantenimiento:{" "}
+                                        {item.periodoncia_mantenimiento_check.S}
+                                      </strong>
+                                    </div>
+                                    <div className="atributo">
+                                      - Asignado al estudiante:{" "}
+                                      {item
+                                        .nombreEstudiante_periodoncia_mantenimiento
+                                        .S || "N/A"}{" "}
+                                      {
+                                        item
+                                          .apellidoEstudiante_periodoncia_mantenimiento
+                                          .S
+                                      }
+                                    </div>
+                                    <div className="atributo">
+                                      - Matrícula:{" "}
+                                      {item
+                                        .matriculaEstudiante_periodoncia_mantenimiento
+                                        .S || "N/A"}
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             </td>
@@ -187,6 +612,10 @@ function BuscarPacientes() {
                 })}
               </tbody>
             </table>
+          </div>
+          <div className="CopyrightUnibeBuscar">
+            <img src={unibe} alt="UNIBE Logo" className="logo_pequeño" />
+            <p>&copy; 2024 UNIBE School of Dentistry. All rights reserved.</p>
           </div>
         </div>
       </section>

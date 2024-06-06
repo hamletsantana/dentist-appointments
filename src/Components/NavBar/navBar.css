@@ -5,16 +5,17 @@
     display: flex;
     justify-content: space-between; /* Adjusted for space between items */
     align-items: center;
+    width: 100%;
   }
 
 .nav-items {
     display: flex;
     list-style: none;
     text-align: center;
-    width: 70vw;
+    width: 100%;
     justify-content: flex-end;
-    margin-right: 1rem;
-    margin-left: 140px;
+    
+
 }
 
 .nav-item {
@@ -22,40 +23,8 @@
     align-items:center;
     height: 14vh;
     width:100%;
-    margin-right: 30px;
-}
+    justify-content: center;
 
-.nav-item a {
-    text-decoration: none;
-    color: white;
-    font-size: 1.1rem;
-    padding: 15px 16px;
-    border-radius: 5px;
-}
-
-.nav-item a:hover {
-
-    background: #047D95;
-}
-
-
-
-.nav-items {
-    display: flex;
-    list-style: none;
-    text-align: center;
-    width: 70vw;
-    justify-content: flex-end;
-    margin-right: 1rem;
-    margin-left: 140px;
-}
-
-.nav-item {
-    display: flex;
-    align-items:center;
-    height: 14vh;
-    width:100%;
-    margin-right: 30px;
 }
 
 .nav-item a {
@@ -86,4 +55,26 @@
   .buttonDashboard:hover {
     background-color: #124d59; /* Darker background color on hover */
   }
-  
+
+  .nav-item-dashboard {
+    display: flex;
+    align-items:center;
+    height: 14vh;
+    width:100%;
+    justify-content: center;
+
+}
+  .nav-item-dashboard a {
+    text-decoration: none;
+    color: #047D95;
+    font-size: 1.1rem;
+    padding: 15px 16px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.nav-item-dashboard a:hover {
+
+    background: white;
+}
+

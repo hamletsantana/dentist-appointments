@@ -33,7 +33,7 @@ function App() {
     <Router>
       <Routes>
         <Route exact path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/home" element={<Dashboard />} />
         <Route path="/cuestionario" element={<Cuestionario />} />
         <Route path="/triaje" element={<Triaje />} />
         <Route path="/buscar-pacientes" element={<BuscarPacientes />} />

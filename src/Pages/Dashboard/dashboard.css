@@ -3,17 +3,28 @@
     
   }
 .Dashboard{
-    background-image: url(/src/Images/dashboard_bg.png);
+    /*background-image: url(/src/Images/dashboard_bg.png);*/
     height: 100vh;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+    /*background-repeat: no-repeat;
+    background-size: 100% 100%;*/
+    width:100%
+}
+.Nav, .Options, .CopyrightUnibeHome {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
 }
 
+.loaded .Nav, .loaded .Options, .loaded .CopyrightUnibeHome {
+  opacity: 1;
+  z-index: 1;
+}
 .Nav {
-   display: flex;
+  position: absolute;
+  display: flex;
   justify-content: space-between; /* Use space-between to keep items on the ends */
   align-items: center;
   padding: 20px;
+  padding-top: 20px;
   position: relative;
 }
 
@@ -47,6 +58,7 @@
   background-color: #124d59; /* Darker background color on hover */
 }
 .optionsButton + .optionsButton {
+  
   margin-left: 100px; /* Adjust the margin between buttons */
 }
 
@@ -67,20 +79,6 @@
 
 .buttonBuscarPaciente:hover {
   background-color: #124d59; /* Darker background color on hover */
-}
-
-
-
-
-
-.CopyrightUnibe {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-  font-size: 12px;
-  color: black; /* Adjust color as needed */
 }
 
 .userGreetings {
@@ -110,4 +108,28 @@
 
 .SignOutDashboard {
   margin-left: 10px; /* Adjust the margin to reduce space */
+}
+
+.CopyrightUnibeHome {
+  position:absolute;
+  bottom:10px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  font-size: 12px;
+  color: black; /* Adjust color as needed */
+   /* Ensure it's above other content */
+}
+
+video{
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+  filter: blur(6px);
+  
+
 }

@@ -9,7 +9,7 @@ function Triaje() {
     <>
       <NavBar></NavBar>
       <img src={triaje} className="triaje_bg" />
-      <div className="CopyrightUnibe">
+      <div className="CopyrightUnibeTriaje">
         <img src={unibe} alt="UNIBE Logo" className="logo_pequeño" />
         <p>&copy; 2024 UNIBE School of Dentistry. All rights reserved.</p>
       </div>

@@ -36,6 +36,12 @@ export const menuItems = [
     title: "Ortodoncia",
     cName: "nav-item",
   },
+  {
+    id: 8,
+    title: "Home Page",
+    path: "/home",
+    cName: "nav-item-dashboard",
+  },
 ];
 
 export const endodonciaDropdown = [
@@ -62,13 +68,13 @@ export const endodonciaDropdown = [
 export const periodonciaDropdown = [
   {
     id: 1,
-    title: "Paciente Periodontal",
+    title: "Periodontal",
     path: "/triaje/periodoncia/periodontal",
     cName: "submenu-item",
   },
   {
     id: 2,
-    title: "Fase de Mantenimiento",
+    title: "Mantenimiento",
     path: "/triaje/periodoncia/fase-mantenimiento",
     cName: "submenu-item",
   },

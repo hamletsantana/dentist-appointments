@@ -8,19 +8,12 @@ import DropDownPeriodoncia from "../DropDownMenus/DropDownPeriodoncia/dropdownpe
 import DropDownOdontopediatria from "../DropDownMenus/DropDownOdontopediatria/dropdownodontopediatria";
 import DropDownOrtodoncia from "../DropDownMenus/DropDownOrtodoncia/dropdownortodoncia";
 import DropDownProtesis from "../DropDownMenus/DropDownProtesis/dropdownprotesis";
-import { useNavigate } from "react-router-dom";
-
 function NavBar() {
   const [dropdownEndodoncia, setDropdownEndodoncia] = useState(false);
   const [dropdownPeriodoncia, setDropdownPeriodoncia] = useState(false);
   const [dropdownOdontopediatria, setDropdownOdontopediatria] = useState(false);
   const [dropdownOrtodoncia, setDropdownOrtodoncia] = useState(false);
   const [dropdownProtesis, setDropdownProtesis] = useState(false);
-  const history = useNavigate();
-
-  const handleClickDashboard = () => {
-    history("/dashboard");
-  };
 
   return (
     <>
@@ -87,6 +80,12 @@ function NavBar() {
                   {dropdownProtesis && <DropDownProtesis />}
                 </li>
               );
+            } else if (item.title === "Dashboard") {
+              return (
+                <li key={item.id} className={item.cName}>
+                  <Link to={item.path}>{item.title}</Link>
+                </li>
+              );
             }
 
             return (
@@ -96,15 +95,6 @@ function NavBar() {
             );
           })}
         </ul>
-        <div className="Nav2">
-          <Authenticate></Authenticate>
-        </div>
-        <div className="Nav2">
-          <button className="buttonDashboard" onClick={handleClickDashboard}>
-            {" "}
-            Dashboard
-          </button>
-        </div>
       </nav>
     </>
   );

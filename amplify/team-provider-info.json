@@ -14,6 +14,12 @@
     "categories": {
       "auth": {
         "dentistappointments9b763730": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d2qmf0x4ary2ng",
+          "type": "manual"
+        }
       }
     }
   }

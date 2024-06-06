@@ -1,10 +1,11 @@
 .periodoncia-submenu{
-    width: 18rem;
+    width: 188px;
     position: absolute;
     list-style: none;
     text-align: start;
-    left:315px;
-    top:109.5px;
+    padding: 0 px 0px 15px 16px;
+    left:25.5%;
+    top:100%;
 }
 
 .periodoncia-submenu li{

@@ -9,9 +9,10 @@ import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import { useForm } from "react-hook-form";
 import SeleccionDientes from "../../Components/Procedimientos/Endodoncia/endodoncia_dientes";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import postApiLinkPost from "../../API/api-post-request";
 import unibe from "../../Images/logo_unibe.png";
+import EmergenciaMedica from "../../Components/Procedimientos/EmergenciaMedica/emergencia_medica";
 
 function Cuestionario() {
   const initState = {
@@ -117,7 +118,7 @@ function Cuestionario() {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const handleClickDashboard = () => {
-    navigate("/dashboard");
+    navigate("/home");
   };
 
   const navigate = useNavigate();
@@ -136,7 +137,7 @@ function Cuestionario() {
             // Request successful, proceed with your logic
             setShowSuccessMessage(true);
             setTimeout(() => {
-              navigate("/dashboard");
+              navigate("/home");
             }, 3000);
           } else {
             // Handle error if the request was not successful
@@ -186,13 +187,15 @@ function Cuestionario() {
     <>
       <section className="Cuestionario">
         <div className="Encabezado">
-          <img src={unibe} alt="UNIBE Logo" className="logo" />
+          <Link to="/home">
+            <img src={unibe} alt="UNIBE Logo" className="logo" />
+          </Link>
           <div className="EncabezadoDerecha">
             <button
               className="buttonDashboardCuestionario"
               onClick={handleClickDashboard}
             >
-              Dashboard
+              Home Page
             </button>
             <Authenticate />
           </div>
@@ -228,8 +231,8 @@ function Cuestionario() {
                   placeholder="2024-55555"
                   {...register("cedula", {
                     required: "El Código es obligatorio",
-                    minLength: {
-                      value: 10,
+                    maxLength: {
+                      value: 9,
                       message: "El código debe tener 10 caracteres",
                     },
                     maxLength: {
@@ -237,9 +240,9 @@ function Cuestionario() {
                       message: "El código debe tener 10 caracteres",
                     },
                     pattern: {
-                      value: /^[0-9\-]+$/,
+                      value: /^[0-9]{4}-[0-9]{4}$/,
                       message:
-                        "La código solo puede contener números y el guión (-)",
+                        "El código debe contener 4 números, un guión, y luego 4 números, sin espacios.",
                     },
                   })}
                 ></Form.Control>
@@ -306,6 +309,7 @@ function Cuestionario() {
                 <Form.Control
                   placeholder="Fecha de Nacimiento"
                   type="date"
+                  dateFormat="DD/MM/YYYY"
                   min={oldDate}
                   max={today}
                   {...register("edadPaciente", {
@@ -381,7 +385,7 @@ function Cuestionario() {
               </Col>
             </Row>
             <Row className="justify-content-md-center">
-              <Col lg="5">
+              <Col lg="9">
                 <Form.Label class="required-field">Dirección</Form.Label>
                 <Form.Control
                   placeholder="Calle. Sector. Municipio"
@@ -399,18 +403,11 @@ function Cuestionario() {
                   </Form.Text>
                 )}
               </Col>
-              <Col lg="4">
-                <Form.Label>Emergencia Médica</Form.Label>
-                <Form.Control
-                  placeholder="Emergencia Medica"
-                  {...register("emergenciaMedica", {
-                    maxLength: {
-                      value: 25,
-                      message:
-                        "Emergencia no puede contener más de 25 caracteres",
-                    },
-                  })}
-                ></Form.Control>
+            </Row>
+            <Row className="justify-content-md-center">
+              <Col lg="9">
+                <Form.Label>Alertas Médicas</Form.Label>
+                <EmergenciaMedica control={control} setValue={setValue} />
               </Col>
             </Row>
             <Row className="justify-content-md-center">

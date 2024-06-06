@@ -1,10 +1,11 @@
 .endodoncia-submenu{
-    width: 10rem;
+    width: 188px;
     position: absolute;
     list-style: none;
     text-align: start;
-    left:135px;
-    top:109.5px;
+    padding: 0 px 0px 15px 16px;
+    left:13.4%;
+    top:100%;
 }
 
 .endodoncia-submenu li{
@@ -26,6 +27,6 @@
     height: 100%;
     text-decoration: none;
     color: white;
-    padding: 16px;
+    padding: 18px;
 }
 
