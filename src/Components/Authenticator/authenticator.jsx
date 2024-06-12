@@ -7,6 +7,25 @@ import awsconfig from "../../aws-exports";
 import "./authenticator.css";
 
 import "@aws-amplify/ui-react/styles.css";
+
+import { I18n } from "aws-amplify/utils";
+import { translations } from "@aws-amplify/ui-react";
+I18n.putVocabularies(translations);
+I18n.setLanguage("es");
+
+I18n.putVocabularies({
+  es: {
+    "Sign In": "Registrarse",
+    "Sign Up": "Regístrate",
+  },
+});
+
+I18n.putVocabulariesForLanguage("en", {
+  "Reset your password": "Forgot your password?",
+  "Enter your username": "Username or Email",
+  "Send code": "Reset my password",
+  "Back to Sign In": "Back to Login",
+});
 Amplify.configure(awsconfig);
 
 const formFields = {
@@ -18,21 +37,36 @@ const formFields = {
   signUp: {
     family_name: {
       label: "Nombre Completo:",
-      placeholder: "Enter your full name",
+      placeholder: "Inserte su nombre completo",
       isRequired: true,
       order: 1,
     },
     email: {
       label: "Email:",
-      placeholder: "Enter your email",
+      placeholder: "Inserte su email de la universidad",
       isRequired: true,
       order: 2,
     },
     password: {
-      label: "Password:",
-      placeholder: "Enter your Password",
+      label: "Contraseña:",
+      placeholder: "Inserte una contraseña",
       isRequired: true,
       order: 3,
+    },
+    confirm_password: {
+      label: "Confirmar Contraseña:",
+      placeholder: "Confirme su contraseña",
+      order: 4,
+    },
+  },
+  signIn: {
+    username: {
+      label: "Email:",
+      placeholder: "Inserte su email",
+    },
+    password: {
+      label: "Contraseña:",
+      placeholder: "Inserte su contraseña",
     },
   },
 };
@@ -55,7 +89,7 @@ function Authenticate() {
     <Authenticator formFields={formFields} SignIn={Authenticate}>
       {({ signOut }) => (
         <button onClick={signOut} className="signOutButton">
-          Sign out
+          Cerrar Sesión
         </button>
       )}
     </Authenticator>

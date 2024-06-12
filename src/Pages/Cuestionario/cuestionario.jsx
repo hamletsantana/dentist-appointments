@@ -1,5 +1,5 @@
 import "./cuestionario.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import dientes from "../../Images/dientes.jpg";
 import Authenticate from "../../Components/Authenticator/authenticator";
 import Col from "react-bootstrap/Col";
@@ -152,6 +152,7 @@ function Cuestionario() {
         });
     }
   };
+  const [disableEndodoncia, setDisableEndodoncia] = useState(false);
 
   const onError = (error) => {
     console.log("ERROR:::", error);
@@ -162,6 +163,7 @@ function Cuestionario() {
     handleSubmit,
     control,
     setValue,
+    watch,
     formState: { errors },
   } = useForm({
     mode: "onTouched",
@@ -170,6 +172,19 @@ function Cuestionario() {
     defaultValues: initialValues,
   });
 
+  const watchEndodonciaFields = watch([
+    "procedimientos.endodoncia.endodoncia_frio",
+    "procedimientos.endodoncia.endodoncia_calor",
+    "procedimientos.endodoncia.endodoncia_masticacion",
+    "procedimientos.endodoncia.endodoncia_palpacion",
+    "procedimientos.endodoncia.endodoncia_percusion",
+    "procedimientos.endodoncia.paciente_inflamado",
+  ]);
+
+  useEffect(() => {
+    const allNo = watchEndodonciaFields.every((value) => value === "No");
+    setDisableEndodoncia(allNo);
+  }, [watchEndodonciaFields]);
   const today = new Date().toISOString().split("T")[0];
 
   const oldDate = new Date(
@@ -195,7 +210,7 @@ function Cuestionario() {
               className="buttonDashboardCuestionario"
               onClick={handleClickDashboard}
             >
-              Home Page
+              Página Principal
             </button>
             <Authenticate />
           </div>
@@ -232,13 +247,11 @@ function Cuestionario() {
                   {...register("cedula", {
                     required: "El Código es obligatorio",
                     maxLength: {
-                      value: 9,
-                      message: "El código debe tener 10 caracteres",
-                    },
-                    maxLength: {
                       value: 10,
-                      message: "El código debe tener 10 caracteres",
+                      message:
+                        "El código debe contener 4 números, un guión, y luego 5 números, sin espacios.",
                     },
+
                     pattern: {
                       value: /^[0-9]{4}-[0-9]{5}$/,
                       message:
@@ -250,7 +263,7 @@ function Cuestionario() {
                   <Form.Text className="text-danger">
                     {
                       (errors.cedula.message =
-                        "Campo Obligatorio: Mínimo 11 números y el guión es aceptado")
+                        "El código debe contener 4 números, un guión, y luego 5 números, sin espacios.")
                     }
                   </Form.Text>
                 )}
@@ -356,7 +369,7 @@ function Cuestionario() {
               <Col lg="3">
                 <Form.Label class="required-field">Cédula</Form.Label>
                 <Form.Control
-                  placeholder="402-5555555-5 o 40255555555"
+                  placeholder="402-5555555-5"
                   {...register("cedula_paciente", {
                     required: "Cédula es obligatoria",
                     minLength: {
@@ -368,9 +381,9 @@ function Cuestionario() {
                       message: "La cédula debe tener máximo 13 caracteres",
                     },
                     pattern: {
-                      value: /^[0-9\-]+$/,
+                      value: /^[0-9]{3}-[0-9]{7}-[0-9]{1}$/,
                       message:
-                        "La cédula solo puede contener números y el guión (-)",
+                        "La cédula debe contener 3 números, un guión, 7 números, un guión, y luego 1 número, sin espacios.",
                     },
                   })}
                 ></Form.Control>
@@ -378,7 +391,7 @@ function Cuestionario() {
                   <Form.Text className="text-danger">
                     {
                       (errors.cedula_paciente.message =
-                        "Campo Obligatorio: Mínimo 11 números y el guión es aceptado")
+                        "La cédula debe contener 3 números, un guión, 7 números, un guión, y luego 1 número, sin espacios.")
                     }
                   </Form.Text>
                 )}
@@ -445,29 +458,38 @@ function Cuestionario() {
                   )}
               </Col>
             </Row>
+
             <Row className="justify-content-md-center">
               <h2>Endodoncia</h2>
-              <Col lg="9">
-                <Form.Label>¿Qué diente/dientes?</Form.Label>
-              </Col>
-              <SeleccionDientes setValue={setValue} control={control} />
             </Row>
+            {!disableEndodoncia && (
+              <Row className="justify-content-md-center">
+                <Col lg="9">
+                  <Form.Label>¿Qué diente/dientes?</Form.Label>
+                </Col>
+                <SeleccionDientes setValue={setValue} control={control} />
+              </Row>
+            )}
 
-            <div className="image-container">
-              <img
-                src={dientes}
-                className="ImagenDientes"
-                alt="Dientes"
-                onClick={openImageInNewTab}
-              />
-            </div>
+            {!disableEndodoncia && (
+              <Row className="justify-content-md-center">
+                <Col lg="9" className="image-container">
+                  <img
+                    src={dientes}
+                    className="ImagenDientes"
+                    alt="Dientes"
+                    onClick={openImageInNewTab}
+                  />
+                </Col>
+              </Row>
+            )}
 
             <Row className="justify-content-md-center endodoncia">
               <p className="endodonciaP">
                 ¿El paciente presenta sintomatología dolorosa?
               </p>
               <Col lg="2">
-                <Form.Label class="required-field">Frío:</Form.Label>
+                <Form.Label className="required-field">Frío:</Form.Label>
                 <Form.Select
                   defaultValue=""
                   aria-label="Default select example"
@@ -490,7 +512,7 @@ function Cuestionario() {
                   )}
               </Col>
               <Col lg="2">
-                <Form.Label class="required-field">Calor:</Form.Label>
+                <Form.Label className="required-field">Calor:</Form.Label>
                 <Form.Select
                   defaultValue=""
                   aria-label="Default select example"
@@ -516,7 +538,7 @@ function Cuestionario() {
                   )}
               </Col>
               <Col lg="2">
-                <Form.Label class="required-field">Masticación:</Form.Label>
+                <Form.Label className="required-field">Masticación:</Form.Label>
                 <Form.Select
                   defaultValue=""
                   aria-label="Default select example"
@@ -545,7 +567,7 @@ function Cuestionario() {
                   )}
               </Col>
               <Col lg="2">
-                <Form.Label class="required-field">Palpación:</Form.Label>
+                <Form.Label className="required-field">Palpación:</Form.Label>
                 <Form.Select
                   defaultValue=""
                   aria-label="Default select example"
@@ -574,7 +596,7 @@ function Cuestionario() {
                   )}
               </Col>
               <Col lg="2">
-                <Form.Label class="required-field">Percusión:</Form.Label>
+                <Form.Label className="required-field">Percusión:</Form.Label>
                 <Form.Select
                   defaultValue=""
                   aria-label="Default select example"
@@ -605,7 +627,7 @@ function Cuestionario() {
             </Row>
             <Row className="justify-content-md-center">
               <Col lg="9">
-                <Form.Label class="required-field">
+                <Form.Label className="required-field">
                   ¿El paciente está inflamado?
                 </Form.Label>
                 <Form.Select

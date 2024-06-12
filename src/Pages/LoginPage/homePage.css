@@ -41,3 +41,33 @@
     width:40%;
   }
   
+
+  .CopyrightLogin{
+  padding-top:10%;
+  left: 50%;
+  text-align: center;
+  font-size: 11px;
+  color: #047D95; /* Adjust color as needed */
+   /* Ensure it's above other content */
+  }
+
+  .CopyrightUnibeLogin {
+    position:absolute;
+    bottom:1px;
+    padding-top: 50px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100%);
+    text-align: center;
+    font-size: 12px;
+    color: black; /* Adjust color as needed */
+     /* Ensure it's above other content */
+  }
+
+  .LinkedIn{
+    text-decoration: none;
+    color: #047D95;
+  }
+
+  .LinkedIn:hover {
+    color: #124d59; /* Darker background color on hover */
+  }

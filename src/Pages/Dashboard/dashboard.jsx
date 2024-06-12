@@ -69,7 +69,7 @@ function Dashboard() {
             <div className="EmailName">
               {familyName && (
                 <p className="userFamilyName">
-                  <span className="welcomeText">Welcome</span>{" "}
+                  <span className="welcomeText">Bienvenido</span>{" "}
                   {familyName.toUpperCase()}
                 </p>
               )}
@@ -96,7 +96,10 @@ function Dashboard() {
       <div className="CopyrightUnibeHome">
         <p>
           <strong>
-            &copy; 2024 UNIBE School of Dentistry. All rights reserved.
+            &copy; 2024 Facultad de Odontología UNIBE. Reservados todos los
+            derechos.
+            <br></br>Desarrollado por Brian Scannell, Hamlet Santana, and Fulano
+            de Tal
           </strong>
         </p>
       </div>

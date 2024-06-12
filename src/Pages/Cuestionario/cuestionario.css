@@ -9,8 +9,13 @@ margin-top: 50px;
 }
 .Cuestionario{
     background-color: #ebebeb;
-    height: 600vh;
+    height: 690vh;
     
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.2; /* Optional: visually indicate that the section is disabled */
 }
 
 .buttonDashboardCuestionario {

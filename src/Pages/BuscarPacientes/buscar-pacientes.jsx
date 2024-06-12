@@ -64,7 +64,7 @@ function BuscarPacientes() {
               className="buttonDashboardCuestionario"
               onClick={handleClickDashboard}
             >
-              Home Page
+              Página Principal
             </button>
             <Authenticate />
           </div>
@@ -614,7 +614,13 @@ function BuscarPacientes() {
           </div>
           <div className="CopyrightUnibeBuscar">
             <img src={unibe} alt="UNIBE Logo" className="logo_pequeño" />
-            <p>&copy; 2024 UNIBE School of Dentistry. All rights reserved.</p>
+            <p>
+              {" "}
+              &copy; 2024 Facultad de Odontología UNIBE. Reservados todos los
+              derechos.
+              <br></br>Desarrollado por Brian Scannell, Hamlet Santana, and
+              Fulano de Tal
+            </p>
           </div>
         </div>
       </section>

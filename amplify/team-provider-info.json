@@ -13,7 +13,20 @@
     },
     "categories": {
       "auth": {
-        "dentistappointments9b763730": {}
+        "dentistappointments9b763730": {},
+        "dentistappointments": {
+          "userPoolId": "us-east-1_RheUFk9R4",
+          "userPoolName": "dentistappointments9b763730_userpool_9b763730-master",
+          "webClientId": "3bn7bl16ffuidod3d05sp22ege",
+          "nativeClientId": "3bn7bl16ffuidod3d05sp22ege",
+          "identityPoolId": "us-east-1:309db6de-265c-412d-8937-61893f56c917",
+          "identityPoolName": "dentistappointments9b763730_identitypool_9b763730__master",
+          "allowUnauthenticatedIdentities": false,
+          "authRoleArn": "arn:aws:iam::561603155759:role/amplify-dentistappointments-master-f840e-authRole",
+          "authRoleName": "amplify-dentistappointments-master-f840e-authRole",
+          "unauthRoleArn": "arn:aws:iam::561603155759:role/amplify-dentistappointments-master-f840e-unauthRole",
+          "unauthRoleName": "amplify-dentistappointments-master-f840e-unauthRole"
+        }
       },
       "hosting": {
         "amplifyhosting": {

@@ -38,7 +38,7 @@ export const menuItems = [
   },
   {
     id: 8,
-    title: "Home Page",
+    title: "Página Principal",
     path: "/home",
     cName: "nav-item-dashboard",
   },
