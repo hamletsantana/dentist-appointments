@@ -69,7 +69,9 @@ body, html {
   outline: none;
 }
 
-
+.AlertasColor{
+  color: red;
+}
 .search-bar:focus {
   border-color: #124d59;
 }
@@ -82,4 +84,14 @@ body, html {
   text-align: center;
   font-size: 12px;
   color: black; /* Adjust color as needed */
+  padding-bottom: 10px;
+}
+
+.LinkBuscarPacientes{
+  text-decoration: none;
+  color: #333;
+}
+
+.LinkBuscarPacientes:hover {
+  color: #047d95; /* Darker background color on hover */
 }

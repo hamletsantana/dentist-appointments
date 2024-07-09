@@ -11,7 +11,28 @@ function Triaje() {
       <img src={triaje} className="triaje_bg" />
       <div className="CopyrightUnibeTriaje">
         <img src={unibe} alt="UNIBE Logo" className="logo_pequeño" />
-        <p>&copy; 2024 UNIBE School of Dentistry. All rights reserved.</p>
+        <p>
+          <strong>
+            &copy; 2024 Facultad de Odontología UNIBE. Reservados todos los
+            derechos.
+            <br></br>Desarrollado por{" "}
+            <a
+              className="LinkedIn"
+              target="_blank"
+              href="https://www.linkedin.com/in/brian-scannell-5880261ba/"
+            >
+              Brian Scannell,
+            </a>{" "}
+            Omar García y{" "}
+            <a
+              className="LinkedIn"
+              target="_blank"
+              href="https://www.linkedin.com/in/hamlet-santana-620b511b2/"
+            >
+              Hamlet Santana
+            </a>
+          </strong>
+        </p>
       </div>
     </>
   );

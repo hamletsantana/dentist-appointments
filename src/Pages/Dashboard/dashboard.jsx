@@ -61,7 +61,7 @@ function Dashboard() {
         onLoadedData={handleVideoLoaded}
       ></video>
       <div className="Nav">
-        <Link to="/home">
+        <Link to="/inicio">
           <img src={unibe} alt="UNIBE Logo" className="logo" />
         </Link>
         <div className="userDetails">
@@ -98,8 +98,22 @@ function Dashboard() {
           <strong>
             &copy; 2024 Facultad de Odontología UNIBE. Reservados todos los
             derechos.
-            <br></br>Desarrollado por Brian Scannell, Hamlet Santana, and Fulano
-            de Tal
+            <br></br>Desarrollado por{" "}
+            <a
+              className="LinkedInCopyRight"
+              target="_blank"
+              href="https://www.linkedin.com/in/brian-scannell-5880261ba/"
+            >
+              Brian Scannell,
+            </a>{" "}
+            Omar García y{" "}
+            <a
+              className="LinkedInCopyRight"
+              target="_blank"
+              href="https://www.linkedin.com/in/hamlet-santana-620b511b2/"
+            >
+              Hamlet Santana
+            </a>
           </strong>
         </p>
       </div>

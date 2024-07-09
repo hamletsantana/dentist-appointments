@@ -179,5 +179,6 @@ td button {
   text-align: center;
   font-size: 12px;
   color: black; /* Adjust color as needed */
+  padding-bottom: 10px;
    /* Ensure it's above other content */
 }

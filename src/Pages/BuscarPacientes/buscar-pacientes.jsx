@@ -11,7 +11,7 @@ function BuscarPacientes() {
   const [selectedItemIndex, setSelectedItemIndex] = useState(null);
 
   const handleClickDashboard = () => {
-    navigate("/home");
+    navigate("/inicio");
   };
 
   const navigate = useNavigate();
@@ -56,7 +56,7 @@ function BuscarPacientes() {
     <>
       <section className="BuscarPacientes">
         <div className="Encabezado">
-          <Link to="/home">
+          <Link to="/inicio">
             <img src={unibe} alt="UNIBE Logo" className="logo" />
           </Link>
           <div className="EncabezadoDerecha">
@@ -134,7 +134,7 @@ function BuscarPacientes() {
                               "$1-$2-$3"
                             )}
                           </td>
-                          <td>
+                          <td style={{ color: "red" }}>
                             {item.emergenciaMedica.S &&
                               JSON.parse(item.emergenciaMedica.S).join(", ")}
                           </td>
@@ -236,8 +236,13 @@ function BuscarPacientes() {
                                     <strong>Código:</strong> {item.cedula.S}
                                   </div>
                                   <br></br>
-                                  <div className="atributoAlertaMedicaBuscaPacientes">
-                                    <strong>Alertas Médicas:</strong>{" "}
+                                  <div
+                                    className="atributoAlertaMedicaBuscaPacientes"
+                                    style={{ color: "red" }}
+                                  >
+                                    <strong style={{ color: "#333" }}>
+                                      Alertas Médicas:
+                                    </strong>{" "}
                                     {item.emergenciaMedica.S &&
                                       JSON.parse(item.emergenciaMedica.S).join(
                                         ", "
@@ -254,9 +259,14 @@ function BuscarPacientes() {
                                 <div className="group-containers">
                                   <div className="group">
                                     <div className="atributo">
-                                      <strong>
-                                        Cirugía: {item.cirugia_check.S}
-                                      </strong>
+                                      <Link
+                                        to="/triaje/cirugias"
+                                        className="LinkBuscarPacientes"
+                                      >
+                                        <strong>
+                                          Cirugía: {item.cirugia_check.S}
+                                        </strong>
+                                      </Link>
                                     </div>
                                     <div className="atributo">
                                       - Asignado al estudiante:{" "}
@@ -271,10 +281,15 @@ function BuscarPacientes() {
                                   </div>
                                   <div className="group">
                                     <div className="atributo">
-                                      <strong>
-                                        Restauraciones:{" "}
-                                        {item.restauracion_check.S}
-                                      </strong>
+                                      <Link
+                                        to="/triaje/restauraciones"
+                                        className="LinkBuscarPacientes"
+                                      >
+                                        <strong>
+                                          Restauraciones:{" "}
+                                          {item.restauracion_check.S}
+                                        </strong>
+                                      </Link>
                                     </div>
                                     <div className="atributo">
                                       - Asignado al estudiante:{" "}
@@ -290,10 +305,15 @@ function BuscarPacientes() {
                                   </div>
                                   <div className="group">
                                     <div className="atributo">
-                                      <strong>
-                                        Endodoncia Anterior:{" "}
-                                        {item.endodoncia_anterior_check.S}
-                                      </strong>
+                                      <Link
+                                        to="/triaje/endodoncias/anterior"
+                                        className="LinkBuscarPacientes"
+                                      >
+                                        <strong>
+                                          Endodoncia Anterior:{" "}
+                                          {item.endodoncia_anterior_check.S}
+                                        </strong>
+                                      </Link>
                                     </div>
                                     <div className="atributo">
                                       - Asignado al estudiante:{" "}
@@ -314,10 +334,15 @@ function BuscarPacientes() {
                                   </div>
                                   <div className="group">
                                     <div className="atributo">
-                                      <strong>
-                                        Endodoncia Molar:{" "}
-                                        {item.endodoncia_molar_check.S}
-                                      </strong>
+                                      <Link
+                                        to="/triaje/endodoncias/molar"
+                                        className="LinkBuscarPacientes"
+                                      >
+                                        <strong>
+                                          Endodoncia Molar:{" "}
+                                          {item.endodoncia_molar_check.S}
+                                        </strong>
+                                      </Link>
                                     </div>
                                     <div className="atributo">
                                       - Asignado al estudiante:{" "}
@@ -336,10 +361,15 @@ function BuscarPacientes() {
                                   </div>
                                   <div className="group">
                                     <div className="atributo">
-                                      <strong>
-                                        Endodoncia Pre-Molar:{" "}
-                                        {item.endodoncia_preMolar_check.S}
-                                      </strong>
+                                      <Link
+                                        to="/triaje/endodoncias/pre-molar"
+                                        className="LinkBuscarPacientes"
+                                      >
+                                        <strong>
+                                          Endodoncia Premolar:{" "}
+                                          {item.endodoncia_preMolar_check.S}
+                                        </strong>
+                                      </Link>
                                     </div>
                                     <div className="atributo">
                                       - Asignado al estudiante:{" "}
@@ -360,13 +390,19 @@ function BuscarPacientes() {
                                   </div>
                                   <div className="group">
                                     <div className="atributo">
-                                      <strong>
-                                        Odontopediatría Operatorio:{" "}
-                                        {
-                                          item.odontopediatria_operatorio_check
-                                            .S
-                                        }
-                                      </strong>
+                                      <Link
+                                        to="/triaje/odontopediatria/operatorio"
+                                        className="LinkBuscarPacientes"
+                                      >
+                                        <strong>
+                                          Odontopediatría Operatorio:{" "}
+                                          {
+                                            item
+                                              .odontopediatria_operatorio_check
+                                              .S
+                                          }
+                                        </strong>
+                                      </Link>
                                     </div>
                                     <div className="atributo">
                                       - Asignado al estudiante:{" "}
@@ -388,14 +424,19 @@ function BuscarPacientes() {
                                   </div>
                                   <div className="group">
                                     <div className="atributo">
-                                      <strong>
-                                        Odontopediatría No Operatorio:{" "}
-                                        {
-                                          item
-                                            .odontopediatria_NoOperatorio_check
-                                            .S
-                                        }
-                                      </strong>
+                                      <Link
+                                        to="/triaje/odontopediatria/no-operatorio"
+                                        className="LinkBuscarPacientes"
+                                      >
+                                        <strong>
+                                          Odontopediatría No Operatorio:{" "}
+                                          {
+                                            item
+                                              .odontopediatria_NoOperatorio_check
+                                              .S
+                                          }
+                                        </strong>
+                                      </Link>
                                     </div>
                                     <div className="atributo">
                                       - Asignado al estudiante:{" "}
@@ -417,10 +458,15 @@ function BuscarPacientes() {
                                   </div>
                                   <div className="group">
                                     <div className="atributo">
-                                      <strong>
-                                        Odontopediatría Control:{" "}
-                                        {item.odontopediatria_control_check.S}
-                                      </strong>
+                                      <Link
+                                        to="/triaje/odontopediatria/control"
+                                        className="LinkBuscarPacientes"
+                                      >
+                                        <strong>
+                                          Odontopediatría Control:{" "}
+                                          {item.odontopediatria_control_check.S}
+                                        </strong>
+                                      </Link>
                                     </div>
                                     <div className="atributo">
                                       - Asignado al estudiante:{" "}
@@ -442,10 +488,15 @@ function BuscarPacientes() {
                                   </div>
                                   <div className="group">
                                     <div className="atributo">
-                                      <strong>
-                                        Prótesis Total:{" "}
-                                        {item.protesis_total_check.S}
-                                      </strong>
+                                      <Link
+                                        to="/triaje/protesis/total"
+                                        className="LinkBuscarPacientes"
+                                      >
+                                        <strong>
+                                          Prótesis Total:{" "}
+                                          {item.protesis_total_check.S}
+                                        </strong>
+                                      </Link>
                                     </div>
                                     <div className="atributo">
                                       - Asignado al estudiante:{" "}
@@ -461,10 +512,15 @@ function BuscarPacientes() {
                                   </div>
                                   <div className="group">
                                     <div className="atributo">
-                                      <strong>
-                                        Prótesis Removible:{" "}
-                                        {item.protesis_removible_check.S}
-                                      </strong>
+                                      <Link
+                                        to="/triaje/protesis/removible"
+                                        className="LinkBuscarPacientes"
+                                      >
+                                        <strong>
+                                          Prótesis Removible:{" "}
+                                          {item.protesis_removible_check.S}
+                                        </strong>
+                                      </Link>
                                     </div>
                                     <div className="atributo">
                                       - Asignado al estudiante:{" "}
@@ -485,10 +541,15 @@ function BuscarPacientes() {
                                   </div>
                                   <div className="group">
                                     <div className="atributo">
-                                      <strong>
-                                        Prótesis Fija:{" "}
-                                        {item.protesis_fija_check.S}
-                                      </strong>
+                                      <Link
+                                        to="/triaje/protesis/fija"
+                                        className="LinkBuscarPacientes"
+                                      >
+                                        <strong>
+                                          Prótesis Fija:{" "}
+                                          {item.protesis_fija_check.S}
+                                        </strong>
+                                      </Link>
                                     </div>
                                     <div className="atributo">
                                       - Asignado al estudiante:{" "}
@@ -504,10 +565,15 @@ function BuscarPacientes() {
                                   </div>
                                   <div className="group">
                                     <div className="atributo">
-                                      <strong>
-                                        Ortodoncia Aparato:{" "}
-                                        {item.ortodoncia_aparato_check.S}
-                                      </strong>
+                                      <Link
+                                        to="/triaje/ortodoncia/aparato"
+                                        className="LinkBuscarPacientes"
+                                      >
+                                        <strong>
+                                          Ortodoncia Aparato:{" "}
+                                          {item.ortodoncia_aparato_check.S}
+                                        </strong>
+                                      </Link>
                                     </div>
                                     <div className="atributo">
                                       - Asignado al estudiante:{" "}
@@ -528,10 +594,15 @@ function BuscarPacientes() {
                                   </div>
                                   <div className="group">
                                     <div className="atributo">
-                                      <strong>
-                                        Ortodoncia Control:{" "}
-                                        {item.ortodoncia_control_check.S}
-                                      </strong>
+                                      <Link
+                                        to="/triaje/ortodoncia/control"
+                                        className="LinkBuscarPacientes"
+                                      >
+                                        <strong>
+                                          Ortodoncia Control:{" "}
+                                          {item.ortodoncia_control_check.S}
+                                        </strong>
+                                      </Link>
                                     </div>
                                     <div className="atributo">
                                       - Asignado al estudiante:{" "}
@@ -552,10 +623,15 @@ function BuscarPacientes() {
                                   </div>
                                   <div className="group">
                                     <div className="atributo">
-                                      <strong>
-                                        Periodoncia Periodontal:{" "}
-                                        {item.paciente_periodontal_check.S}
-                                      </strong>
+                                      <Link
+                                        to="/triaje/periodoncia/periodontal"
+                                        className="LinkBuscarPacientes"
+                                      >
+                                        <strong>
+                                          Periodoncia Periodontal:{" "}
+                                          {item.paciente_periodontal_check.S}
+                                        </strong>
+                                      </Link>
                                     </div>
                                     <div className="atributo">
                                       - Asignado al estudiante:{" "}
@@ -577,10 +653,18 @@ function BuscarPacientes() {
                                   </div>
                                   <div className="group">
                                     <div className="atributo">
-                                      <strong>
-                                        Periodoncia Mantenimiento:{" "}
-                                        {item.periodoncia_mantenimiento_check.S}
-                                      </strong>
+                                      <Link
+                                        to="/triaje/periodoncia/fase-mantenimiento"
+                                        className="LinkBuscarPacientes"
+                                      >
+                                        <strong>
+                                          Periodoncia Mantenimiento:{" "}
+                                          {
+                                            item.periodoncia_mantenimiento_check
+                                              .S
+                                          }
+                                        </strong>
+                                      </Link>
                                     </div>
                                     <div className="atributo">
                                       - Asignado al estudiante:{" "}
@@ -615,11 +699,24 @@ function BuscarPacientes() {
           <div className="CopyrightUnibeBuscar">
             <img src={unibe} alt="UNIBE Logo" className="logo_pequeño" />
             <p>
-              {" "}
               &copy; 2024 Facultad de Odontología UNIBE. Reservados todos los
               derechos.
-              <br></br>Desarrollado por Brian Scannell, Hamlet Santana, and
-              Fulano de Tal
+              <br></br>Desarrollado por{" "}
+              <a
+                className="LinkedIn"
+                target="_blank"
+                href="https://www.linkedin.com/in/brian-scannell-5880261ba/"
+              >
+                Brian Scannell,
+              </a>{" "}
+              Omar García y{" "}
+              <a
+                className="LinkedIn"
+                target="_blank"
+                href="https://www.linkedin.com/in/hamlet-santana-620b511b2/"
+              >
+                Hamlet Santana
+              </a>
             </p>
           </div>
         </div>

@@ -134,3 +134,12 @@ video{
   
 
 }
+
+.LinkedInCopyRight{
+  text-decoration: none;
+  color: black;
+}
+
+.LinkedInCopyRight:hover {
+  color: #202627; /* Darker background color on hover */
+}

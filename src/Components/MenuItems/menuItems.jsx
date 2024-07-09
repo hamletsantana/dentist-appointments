@@ -39,7 +39,7 @@ export const menuItems = [
   {
     id: 8,
     title: "Página Principal",
-    path: "/home",
+    path: "/inicio",
     cName: "nav-item-dashboard",
   },
 ];
@@ -74,7 +74,7 @@ export const periodonciaDropdown = [
   },
   {
     id: 2,
-    title: "Mantenimiento",
+    title: "Fase De Mantenimiento",
     path: "/triaje/periodoncia/fase-mantenimiento",
     cName: "submenu-item",
   },

@@ -243,7 +243,7 @@ const Anterior = () => {
                           "$1-$2-$3"
                         )}
                       </td>
-                      <td>
+                      <td style={{ color: "red" }}>
                         {item.emergenciaMedica.S &&
                           JSON.parse(item.emergenciaMedica.S).join(", ")}
                       </td>
@@ -311,8 +311,10 @@ const Anterior = () => {
                                 "$1-$2-$3"
                               )}
                             </div>
-                            <div className="attribute">
-                              <strong>Alertas Médicas:</strong>{" "}
+                            <div className="attribute" style={{ color: "red" }}>
+                              <strong style={{ color: "#333" }}>
+                                Alertas Médicas:
+                              </strong>{" "}
                               {item.emergenciaMedica.S
                                 ? JSON.parse(item.emergenciaMedica.S).join(", ")
                                 : "N/A"}
@@ -497,7 +499,26 @@ const Anterior = () => {
         </table>
         <div className="CopyrightUnibe">
           <img src={unibe} alt="UNIBE Logo" className="logo_pequeño" />
-          <p>&copy; 2024 UNIBE School of Dentistry. All rights reserved.</p>
+          <p>
+            &copy; 2024 Facultad de Odontología UNIBE. Reservados todos los
+            derechos.
+            <br></br>Desarrollado por{" "}
+            <a
+              className="LinkedIn"
+              target="_blank"
+              href="https://www.linkedin.com/in/brian-scannell-5880261ba/"
+            >
+              Brian Scannell,
+            </a>{" "}
+            Omar García y{" "}
+            <a
+              className="LinkedIn"
+              target="_blank"
+              href="https://www.linkedin.com/in/hamlet-santana-620b511b2/"
+            >
+              Hamlet Santana
+            </a>
+          </p>
         </div>
       </div>
     </>

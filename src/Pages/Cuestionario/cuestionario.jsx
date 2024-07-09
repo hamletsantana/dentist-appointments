@@ -97,6 +97,7 @@ function Cuestionario() {
         areas_perdida_dientes_bilateral: "",
         protesis_fija: "",
         protesis_removible: "",
+        protesis_perno_corona: "",
         protesis_total_superior: "",
         protesis_total_inferior: "",
       },
@@ -118,7 +119,7 @@ function Cuestionario() {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const handleClickDashboard = () => {
-    navigate("/home");
+    navigate("/inicio");
   };
 
   const navigate = useNavigate();
@@ -137,7 +138,7 @@ function Cuestionario() {
             // Request successful, proceed with your logic
             setShowSuccessMessage(true);
             setTimeout(() => {
-              navigate("/home");
+              navigate("/inicio");
             }, 3000);
           } else {
             // Handle error if the request was not successful
@@ -185,6 +186,7 @@ function Cuestionario() {
     const allNo = watchEndodonciaFields.every((value) => value === "No");
     setDisableEndodoncia(allNo);
   }, [watchEndodonciaFields]);
+
   const today = new Date().toISOString().split("T")[0];
 
   const oldDate = new Date(
@@ -202,7 +204,7 @@ function Cuestionario() {
     <>
       <section className="Cuestionario">
         <div className="Encabezado">
-          <Link to="/home">
+          <Link to="/inicio">
             <img src={unibe} alt="UNIBE Logo" className="logo" />
           </Link>
           <div className="EncabezadoDerecha">
@@ -943,6 +945,39 @@ function Cuestionario() {
               </Col>
             </Row>
             <Row className="justify-content-md-center">
+              <Col lg="9">
+                <Form.Label class="required-field">
+                  ¿El Paciente necesita una Perno+Corona?
+                </Form.Label>
+                <Form.Select
+                  defaultValue=""
+                  aria-label="Default select example"
+                  {...register(
+                    "procedimientos.protesis.protesis_perno_corona",
+                    {
+                      required: "Selección Necesaria",
+                    }
+                  )}
+                >
+                  <option value="" disabled>
+                    Elija una opción
+                  </option>
+                  <option value="Si">Si</option>
+                  <option value="No">No</option>
+                </Form.Select>
+                {errors.procedimientos &&
+                  errors.procedimientos.protesis &&
+                  errors.procedimientos.protesis.protesis_perno_corona && (
+                    <Form.Text className="text-danger">
+                      {
+                        errors.procedimientos.protesis.protesis_perno_corona
+                          .message
+                      }
+                    </Form.Text>
+                  )}
+              </Col>
+            </Row>
+            <Row className="justify-content-md-center">
               <p>¿El paciente necesita una prótesis total?</p>
               <Col lg="4">
                 <Form.Label class="required-field">Arcada Superior:</Form.Label>
@@ -1298,8 +1333,8 @@ function Cuestionario() {
                 color: "white",
               }}
             >
-              Su formulario se ha enviado existosamente! Redirigiendo al
-              Dashboard...
+              Su formulario se ha enviado existosamente! Redirigiendo a la
+              página de inicio ...
             </div>
           )}
         </div>
